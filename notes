@@ -1,0 +1,10 @@
+To do:
+
+Parser:
+	check if file contains file extension
+	check if Capitals occur only once
+	goede errormessages geven
+	check returnvalues van inlezen in elke identifier functie
+
+includes squigle lines
+update norminette
