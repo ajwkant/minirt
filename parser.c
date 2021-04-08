@@ -16,7 +16,6 @@
 
 // een of meerdere newlines overslaan
 // struct goed maken en doorgeven
-
 int		identifier(char *str)
 {
 	if (*str == 'R')
