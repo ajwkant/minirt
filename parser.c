@@ -16,12 +16,13 @@
 
 // een of meerdere newlines overslaan
 // struct goed maken en doorgeven
-int		identifier(char *str)
+// gebruik strcmp
+int		identifier(char *str, t_scene *scene)
 {
 	if (*str == 'R')
-		return (resolution(, str + 1));
+		return (resolution(scene->resolution, str + 1));
 	if (*str == 'A')
-		return (ambient( , str + 1));
+		return (ambient(scene->ambient, str + 1));
 	if (*str == 'c' && str[1] == ' ')
 		return ();
 	if (*str == 'l')
@@ -39,7 +40,7 @@ int		identifier(char *str)
 	return (-1);
 }
 
-void	*parser(char *file)
+void	*parser(char *file, t_scene *scene) // scene doorgeven aan identifier
 {
 	int		fd;
 	char	*line;
@@ -52,7 +53,7 @@ void	*parser(char *file)
 	ret = get_next_line(fd, &line);
 	while (ret >= 0)
 	{
-		error = identifier(line);
+		error = identifier(line, scene); // check returnvalue
 		if (ret == 0) // nog passende error dingen schrijven
 			break ;
 		ret = get_next_line(fd, &line);

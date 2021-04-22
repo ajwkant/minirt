@@ -21,6 +21,7 @@ typedef struct  s_truct {
     int         bits_per_pixel;
     int         line_length;
     int         endian;
+	int			i;
 }               t_truct;
 
 int		close_function(int keycode, t_vars *vars)
@@ -39,32 +40,41 @@ void	my_mlx_pixel_put(t_truct *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-int		render_next_frame(t_truct *mystruct, int i)
-{
-	my_mlx_pixel_put(mystruct, 500 + i, 500 + i, 0x00FF0000);
-	return (1);
-}
+// int		render_next_frame(t_truct *mystruct)
+// {
+// 	mlx_string_put (mystruct, void *win_ptr, int x, int y, int color, char *string );
+// 	if (mystruct->i < 490)
+// 		mystruct->i++;
+// 	my_mlx_pixel_put(mystruct, 500 + mystruct->i, 500 + mystruct->i, 0x00FF0000);
+// 	my_mlx_pixel_put(mystruct, 10 + mystruct->i, 10 + mystruct->i, 0x00FF0000);
+// 	return (0);
+// }
 
 int     main(void)
 {
-	
+
 	t_truct		mystruct;
 	void		*mlx_win;
 	int			i;
 
     mystruct.mlx = mlx_init();
-	mlx_win = mlx_new_window(mystruct.mlx, 1920, 1080, "Hello world");
-	mystruct.img = mlx_new_image(mystruct.mlx, 1920, 1080);
+	mlx_win = mlx_new_window(mystruct.mlx, 1000, 1000, "Hello world");
+	mystruct.img = mlx_new_image(mystruct.mlx, 1000, 1000);
 	mystruct.addr = mlx_get_data_addr(mystruct.img, &mystruct.bits_per_pixel, &mystruct.line_length,
 		&mystruct.endian);
 	i = 0;
-	while (i < 1000)
-	{
-		mlx_loop_hook(mystruct.mlx, render_next_frame(&mystruct, i), &mystruct);
-		mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
-		mlx_loop(mystruct.mlx);
-	}
-	
+	mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
+	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
+	mlx_loop(mystruct.mlx);
+	// while (i < 1000)
+	// {
+	// 	mystruct.i = i;
+	// 	printf("TEST")
+	// 	// mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
+	// 	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
+	// 	mlx_loop(mystruct.mlx);
+	// }
+
     // mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
 }
 
@@ -137,7 +147,7 @@ int     main(void)
 // 	// 	if (x - y == 50 || x + y == 50)
 // 	// 		my_mlx_pixel_put(&img, 800 + x, 600 + y, 0x00FF0000);
 // 	// 	x++;
-		
+
 // 	// 	if (x == 100)
 // 	// 	{
 // 	// 		x = 0;

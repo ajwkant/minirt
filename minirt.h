@@ -4,12 +4,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft.h"
+// #include "libft.h"
+#include <math.h>
 
-typedef struct		s_list
+
+// void			*img;
+    // char        	*addr;
+    // int         	bits_per_pixel;
+
+typedef struct  	s_vec3f
 {
+	float				x;
+	float				y;
+	float				z;
+}					t_vec3f;
 
-}					t_list;
+typedef struct		s_rgb
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_rgb;
+
+typedef struct		s_ray
+{
+	t_vec3f			*place;
+	t_vec3f			*direction;
+}					t_ray;
 
 typedef struct		s_res
 {
@@ -20,102 +41,86 @@ typedef struct		s_res
 typedef struct		s_amb
 {
 	float			ratio;
-	int				r;
-	int				g;
-	int				b;
+	t_rgb			*rgb;
 }					t_amb;
 
 typedef struct		s_cam
 {
-	float			x;
-	float			y;
-	float			z;
-	int				vx;
-	int				vy;
-	int				vz;
+	t_vec3f			*place;
+	t_vec3f			*direction;
 	int				fov;
-}					t_cam
+}					t_cam;
 
 typedef struct		s_light
 {
-	float			x;
-	float			y;
-	float			z;
+	t_vec3f			*place;
 	float			brightness;
-	int				r;
-	int				g;
-	int				b;
-}					t_light
+	t_rgb			*rgb;
+}					t_light;
 
 typedef struct		s_sphere
 {
-	float			x;
-	float			y;
-	float			z;
+	t_vec3f			*place;
 	float			dia;
-	int				r;
-	int				g;
-	int				b;
-}					t_sphere
+	t_rgb			*rgb;
+}					t_sphere;
 
 typedef struct		s_plane
 {
-	float			x;
-	float			y;
-	float			z;
-	float			xv;
-	float			vy;
-	float			vz;
-	int				r;
-	int				g;
-	int				b;
-}					t_plane
+	t_vec3f			*place;
+	t_vec3f			*direction;
+	t_rgb			*rgb;
+}					t_plane;
 
 typedef struct		s_square
 {
-	float			x;
-	float			y;
-	float			z;
-	float			xv;
-	float			vy;
-	float			vz;
+	t_vec3f			*place;
+	t_vec3f			*direction;
 	float			size;
-	int				r;
-	int				g;
-	int				b;
-}					t_square
+	t_rgb			*rgb;
+}					t_square;
 
 typedef struct		s_cylinder
 {
-	float			x;
-	float			y;
-	float			z;
-	float			xv;
-	float			vy;
-	float			vz;
+	t_vec3f			*place;
+	t_vec3f			*direction;
 	float			diam;
 	float			height;
-	int				r;
-	int				g;
-	int				b;
-}					t_cylinder
+	t_rgb			*rgb;
+}					t_cylinder;
 
 typedef struct		s_triangle
 {
-	float			x1;
-	float			y1;
-	float			z1;
-	float			x2;
-	float			y2;
-	float			z2;
-	float			x3;
-	float			y3;
-	float			z3;
-	int				r;
-	int				g;
-	int				b;
-}					t_triangle
+	t_vec3f			*p1;
+	t_vec3f			*p2;
+	t_vec3f			*p3;
+	t_rgb			*rgb;
+}					t_triangle;
 
+typedef struct			s_scene
+{
+	void				*mlx;
+	t_vec3f				*framebuffer;
+	t_res				*resolution;
+	t_amb				*ambient;
+	t_cam				*camera;
+	t_light				*light;
+	t_sphere			*sphere;
+	t_plane				*plane;
+	t_square			*square;
+	t_cylinder			*cylinder;
+	t_triangle			*triangle;
+}						t_scene;
 
+// typedef struct		s_truct {
+//     void       		*mlx;
+// 	// void			*img;
+//     // char        	*addr;
+//     // int         	bits_per_pixel;
+//     int         	width;
+//     int         	height;
+//     // int         	endian;
+// 	// int				i;
+// }               	t_truct;
 
 #endif

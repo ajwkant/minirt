@@ -1,5 +1,8 @@
 #include "minirt.h"
 
+// errorcodes return nog doen
+// returnwaardes van readfuncties checken
+
 int		resolution(t_res *res, char *str) // Valuecheck
 {
 	int		i;
@@ -21,11 +24,14 @@ int		ambient(t_amb *amb, char *str) // Ranges checken correctness
 	i = 0;
 	amb = malloc(sizeof(t_amb));
 	if (!amb)
-		return (-1) // errorcode
+		return (-1);
+	amb->rgb = malloc(sizeof(t_rgb));
+	if (!amb->rgb)
+		return (-1);
 	amb->ratio = readfloat(str, &i, ' ');
-	amb->r = readint(str, &i, ' ');
-	amb->g = readint(str, &i, ',');
-	amb->b = readint(str, &i, ',');
+	amb->rgb->r  = readint(str, &i, ' ');
+	amb->rgb->g = readint(str, &i, ',');
+	amb->rgb->b = readint(str, &i, ',');
 	if () // errorchecking returnwaardes functies
 	return (1); // returnvalue checken
 }
