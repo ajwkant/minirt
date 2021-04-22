@@ -25,6 +25,7 @@ int		main(void)
 	scene->camera->place->x = 0;
 	scene->camera->place->y = 0;
 	scene->camera->place->z = 0;
+	// scene-> sphere maken
 	ray = make_camera_ray(4, 2, scene);
 	printf("uno: %f, dos: %f, tres: %f\n", ray->place->x, ray->place->y, ray->place->z);
 	printf("uno: %f, dos: %f, tres: %f\n", ray->direction->x, ray->direction->y, ray->direction->z);

@@ -12,6 +12,8 @@
     // char        	*addr;
     // int         	bits_per_pixel;
 
+// Een lange list maken van alle objecten
+
 typedef struct  	s_vec3f
 {
 	float				x;
@@ -105,6 +107,9 @@ typedef struct			s_scene
 	t_amb				*ambient;
 	t_cam				*camera;
 	t_light				*light;
+
+	// object list maken
+
 	t_sphere			*sphere;
 	t_plane				*plane;
 	t_square			*square;

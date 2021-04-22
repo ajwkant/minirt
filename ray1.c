@@ -23,8 +23,9 @@ t_ray	*make_camera_ray(int x, int y, t_scene *scene)
 	if (!ray->direction)
 		return (NULL);
 	ray->place = scene->camera->place;
-	ray->direction->x = (2 * (((int)x + 0.5) / scene->resolution->x) - 1) * scene->resolution->x / scene->resolution->y * ; // nog VOF toevoegen
-	ray->direction->y = 1 - 2 * (((int)y + 0.5) / scene->resolution->y);
+	ray->direction->x = (2 * (((int)x + 0.5) / scene->resolution->x) - 1)
+		* scene->resolution->x / scene->resolution->y * (tan(M_PI * scene->camera->vof / 360));
+	ray->direction->y = 1 - 2 * (((int)y + 0.5) / scene->resolution->y) * (tan(M_PI * scene->camera->vof / 360));
 	ray->direction->z = 1;
 	normalize_direction_vector(ray->direction);
 	return (ray);
@@ -34,6 +35,7 @@ t_ray	*make_camera_ray(int x, int y, t_scene *scene)
 
 // moet je elke framebuffer malloccen?
 // functie maken die door alle objects heen loopt voor objects
+// Camera verplaatsbaar maken
 ray_trace(t_scene *scene)
 {
 	int		x;
@@ -48,7 +50,7 @@ ray_trace(t_scene *scene)
 	if (!scene->framebuffer)
 		return (); // fout
 	y = 0;
-	while (y < scene->resolution->y) // height is niks meer
+	while (y < scene->resolution->y)
 	{
 		x = 0;
 		while (x < scene->resolution->x)
@@ -58,7 +60,7 @@ ray_trace(t_scene *scene)
 			ray = make_camera_ray(x, y, scene);
 			while (objects[obj])
 			{
-				distance = intersect(objects[obj], ray);
+				distance = intersect(ray, sphere);  //, objects[obj]); // objects maken, voorlopig 1 sphere
 				if (distance < closest_obj)
 				{
 					closest_obj = distance;
