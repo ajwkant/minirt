@@ -1,46 +1,30 @@
 #include "minirt.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // een of meerdere newlines overslaan
-// struct goed maken en doorgeven
-// gebruik strcmp
 int		identifier(char *str, t_scene *scene)
 {
-	if (*str == 'R')
+	if (!ft_strncmp(str, "R ", 2))
 		return (resolution(scene->resolution, str + 1));
-	if (*str == 'A')
+	if (!ft_strncmp(str, "A ", 2))
 		return (ambient(scene->ambient, str + 1));
-	if (*str == 'c' && str[1] == ' ')
-		return ();
-	if (*str == 'l')
-		return ();
-	if (*str == 'p')
-		return ();
-	if (*str == 's' && str[1] == 'p')
-		return ();
-	if (*str == 's' && str[1] == 'q')
-		return ();
-	if (*str == 'c' && str[1] = 'y')
-		return ();
-	if (*str == 't' && str[1] == 'r')
-		return ();
+	if (!ft_strncmp(str, "c ", 2))
+		return (cameraid(scene->cameraid, str + 1));
+	if (!ft_strncmp(str, "l ", 2))
+		return (lichtid(scene->lightid, str + 1));
+	if (!ft_strncmp(str, "pl ", 3))
+		return (planeid(t_scene *scene, str + 1));
+	if (!ft_strncmp(str, "sp ", 3))
+		return (sphereid(t_scene *scene, str + 1)); 
+	if (!ft_strncmp(str, "sq ", 3))
+		return (squareid(t_scene *scene, str + 1));
+	if (!ft_strncmp(str, "cy ", 3))
+		return (cylinderid(t_scene *scene, str + 1));
+	if (!ft_strncmp(str, "tr ", 3))
+		return (triangleid(t_scene *scene, str + 1));
 	return (-1);
 }
 
-void	*parser(char *file, t_scene *scene) // scene doorgeven aan identifier
+void	*parser(char *file, t_scene *scene) // lege lines skippen
 {
 	int		fd;
 	char	*line;

@@ -1,10 +1,14 @@
 #include "minirt.h"
 
-int		planeid(t_plane *plane, char *str)
+int		planeid(t_scene *scene, char *str)
 {
-	int		i;
+	int			i;
+	t_object	*object;
 
 	i = 0;
+	last_object(scene)->next = object;
+	if (!object_init(object))
+		return (-1); // error
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
 		return (-1);
@@ -17,14 +21,19 @@ int		planeid(t_plane *plane, char *str)
 	plane->r = readint(str, &i, ' ');
 	plane->g = readint(str, &i, ',');
 	plane->b = readint(str, &i, ','):
+	object->plane = plane;
 	return (1);
 }
 
 int		squareid(t_square *square, char *str)
 {
-	int		i;
+	int			i;
+	t_object	*object;
 
 	i = 0;
+	last_object(scene)->next = object;
+	if (!object_init(object))
+		return (-1); // error
 	square = malloc(sizeof(t_square));
 	if (!square)
 		return (-1);
@@ -38,14 +47,19 @@ int		squareid(t_square *square, char *str)
 	square->r = readint(str, &i, ' ');
 	square->g = readint(str, &i, ',');
 	square->b = readint(str, &i, ','):
+	object->square = square;
 	return (1);
 }
 
 int		cylinderid(t_cylinder *cylinder, char *str)
 {
-	int		i;
+	int			i;
+	t_object	*object;
 
 	i = 0;
+	last_object(scene)->next = object;
+	if (!object_init(object))
+		return (-1); // error
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (-1);
@@ -60,14 +74,19 @@ int		cylinderid(t_cylinder *cylinder, char *str)
 	cylinder->r = readint(str, &i, ' ');
 	cylinder->g = readint(str, &i, ',');
 	cylinder->b = readint(str, &i, ','):
+	object->cylinder = cylinder;
 	return (1);
 }
 
 int		triangleid(t_triangle *triangle, char *str)
 {
-	int		i;
+	int			i;
+	t_object	*object;
 
 	i = 0;
+	last_object(scene)->next = object;
+	if (!object_init(object))
+		return (-1); // error
 	triangle = malloc(sizeof(t_triangle));
 	if (!triangle)
 		return (-1);
@@ -83,5 +102,6 @@ int		triangleid(t_triangle *triangle, char *str)
 	triangle->r = readint(str, &i, ' ');
 	triangle->g = readint(str, &i, ',');
 	triangle->b = readint(str, &i, ','):
+	object->triangle = triangle;
 	return (1);
 }

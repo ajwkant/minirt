@@ -2,12 +2,13 @@
 
 // errorcodes return nog doen
 // returnwaardes van readfuncties checken
-
 int		resolution(t_res *res, char *str) // Valuecheck
 {
 	int		i;
 
 	i = 0;
+	if (res != NULL)
+		return (-1);
 	res = malloc(sizeof(t_res));
 	if (!res)
 		return (-1) // errorcode
@@ -21,6 +22,8 @@ int		ambient(t_amb *amb, char *str) // Ranges checken correctness
 {
 	int	i;
 
+	if (amb != NULL)
+		return (-1);
 	i = 0;
 	amb = malloc(sizeof(t_amb));
 	if (!amb)
@@ -44,7 +47,8 @@ int		cameraid(t_cam *cam, char *str)
 	int		i;
 
 	i = 0;
-	cam = malloc(sizeof(t_cam));
+	if (cam == NULL)
+		cam = malloc(sizeof(t_cam)); // volgende camera in de list oid
 	if (!cam)
 		return (-1);
 	cam->x = readfloat(str, &i, ' ');
@@ -77,9 +81,13 @@ int		lightid(t_light *light, char *str)
 
 int		sphereid(t_sphere *sphere, char *str)
 {
-	int		i;
+	int			i;
+	t_object	*object;
 
 	i = 0;
+	last_object(scene)->next = object;
+	if (!object_init(object))
+		return (-1); // error
 	sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
 		return (-1);
@@ -90,5 +98,6 @@ int		sphereid(t_sphere *sphere, char *str)
 	sphere->r = readint(str, &i, ' ');
 	sphere->g = readint(str, &i, ',');
 	sphere->b = readint(str, &i, ','):
+	object->sphere = sphere;
 	return (1);
 }

@@ -50,7 +50,7 @@ void	my_mlx_pixel_put(t_truct *data, int x, int y, int color)
 // 	return (0);
 // }
 
-int     main(void)
+int		main(void)
 {
 
 	t_truct		mystruct;

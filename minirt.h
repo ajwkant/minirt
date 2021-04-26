@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-// #include "libft.h"
+#include "libft.h"
 #include <math.h>
 
 
@@ -14,7 +14,7 @@
 
 // Een lange list maken van alle objecten
 
-typedef struct  	s_vec3f
+typedef struct		s_vec3f
 {
 	float				x;
 	float				y;
@@ -51,6 +51,7 @@ typedef struct		s_cam
 	t_vec3f			*place;
 	t_vec3f			*direction;
 	int				fov;
+	t_cam			*next;
 }					t_cam;
 
 typedef struct		s_light
@@ -99,6 +100,16 @@ typedef struct		s_triangle
 	t_rgb			*rgb;
 }					t_triangle;
 
+typedef struct			s_object
+{
+	t_sphere			*sphere;
+	t_plane				*plane;
+	t_square			*square;
+	t_cylinder			*cylinder;
+	t_triangle			*triangle;
+	t_object			*next;
+}						t_object;
+
 typedef struct			s_scene
 {
 	void				*mlx;
@@ -107,15 +118,10 @@ typedef struct			s_scene
 	t_amb				*ambient;
 	t_cam				*camera;
 	t_light				*light;
-
-	// object list maken
-
-	t_sphere			*sphere;
-	t_plane				*plane;
-	t_square			*square;
-	t_cylinder			*cylinder;
-	t_triangle			*triangle;
+	t_object			*object;
 }						t_scene;
+
+
 
 // typedef struct		s_truct {
 //     void       		*mlx;

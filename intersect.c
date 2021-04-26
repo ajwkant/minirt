@@ -21,6 +21,7 @@ int		abcformula(float a, float b, float c, int *x1, int *x2)
 {
 	float discriminator;
 	float q;
+	float temp;
 
 	discriminator = b * b - 4 * a * c;
 	if (discriminator < 0)
@@ -31,8 +32,15 @@ int		abcformula(float a, float b, float c, int *x1, int *x2)
 		*x2 = x1;
 		return (1);
 	}
-	q = -b + 
-	
+	*x1 = (-b + sqrt(discriminator)) / (2  * a);
+	*x2 = (-b - sqrt(discriminator)) / (2  * a);
+	if (*x1 > *x2)
+	{
+		temp = *x1;
+		*x1 = *x2;
+		*x2 = temp;
+	}
+	return (1);
 }
 
 float	intersect(t_ray *ray, t_sphere *sphere)
@@ -53,21 +61,11 @@ float	intersect(t_ray *ray, t_sphere *sphere)
 	c = dotproduct(L, L) - sphere->dia * sphere->dia;
 	if (!abcformula(a, b, c, &x1, &x2))
 		return (-1); // geen snijpunten
+	if (*x1 < 0)
+	{
+		*x1 = *x2;
+		if (*x1 < 0)
+		return (-1);
+	}
+	return(x1);
 }
-
-Vec3f L = orig - center; 
-        float a = dir.dotProduct(dir);
-        float b = 2 * dir.dotProduct(L); 
-        float c = L.dotProduct(L) - radius2; 
-        if (!solveQuadratic(a, b, c, t0, t1)) return false; 
-#endif 
-        if (t0 > t1) std::swap(t0, t1); 
- 
-        if (t0 < 0) { 
-            t0 = t1; // if t0 is negative, let's use t1 instead 
-            if (t0 < 0) return false; // both t0 and t1 are negative 
-        } 
- 
-        t = t0; 
- 
-        return true; 

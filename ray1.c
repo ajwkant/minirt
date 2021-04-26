@@ -60,8 +60,8 @@ ray_trace(t_scene *scene)
 			ray = make_camera_ray(x, y, scene);
 			while (objects[obj])
 			{
-				distance = intersect(ray, sphere);  //, objects[obj]); // objects maken, voorlopig 1 sphere
-				if (distance < closest_obj)
+				distance = intersect(ray, sphere); //, objects[obj]); // objects maken, voorlopig 1 sphere
+				if (distance < closest_obj && !(distance < 0))
 				{
 					closest_obj = distance;
 					framebuffer[y * scene->width + x] = color(objects[obj].color);
