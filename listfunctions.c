@@ -1,8 +1,16 @@
 #include "minirt.h"
 
-t_object	*last_object(t_scene *scene)
+void	add_last_object(t_scene *scene, t_object *object)
 {
-	while (scene->object->next)
-		scene->object = scene->object->next;
-	return (scene->object);
+	t_object *temp;
+
+	if (scene->object)
+	{
+		temp = scene->object;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = object;
+	}
+	else
+		scene->object = object;
 }

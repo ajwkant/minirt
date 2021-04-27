@@ -1,9 +1,9 @@
 #include "minirt.h"
 
-int		skipchar(char *str, i, char c)
+int		skipchar(char *str, int i, char c)
 {
 	if (str[i] != c)
-		return (-1) // proper errorcode
+		return (-1); // proper errorcode
 	while (str[i] == c)
 		i++;
 	return (i);
@@ -23,11 +23,11 @@ int		readint(char *str, int *i, char c)
 {
 	int res;
 
-	*i = skipchar(str, i, c);
+	*i = skipchar(str, *i, c);
 	if (*i == -1) // errorcheck
 		return (-1);
-	if (!ft_isdigit(str[i]))
-		return (-1) // proper errorcode
+	if (!ft_isdigit(str[*i]))
+		return (-1); // proper errorcode
 	res = ft_atoi(str);
 	*i += floatindex(str);
 	return (res);
@@ -37,11 +37,11 @@ float	readfloat(char *str, int *i, char c)
 {
 	int res;
 
-	*i = skipchar(str, i, c);
+	*i = skipchar(str, *i, c);
 	if (*i == -1) // errorcheck
 		return (-1);
-	if (!ft_isdigit(str[i]))
-		return (-1) // proper errorcode
+	if (!ft_isdigit(str[*i]))
+		return (-1); // proper errorcode
 	res = ft_atof(str);
 	*i += floatindex(str);
 	return (res);
@@ -57,6 +57,7 @@ float	ft_atof(char *str)
 	res = 0;
 	dec = 0.1;
 	neg = 1;
+	i = 0;
 	if (str[i] == '-')
 		neg = -1;
 	if (str[i] == '-')

@@ -1,5 +1,6 @@
 #include <mlx.h>
 #include <stdio.h>
+#include "minirt.h"
 
 typedef struct  s_data {
     void        *img;
@@ -40,6 +41,27 @@ void	my_mlx_pixel_put(t_truct *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
+int	main(int argc, char **argv)
+{
+	t_scene		*scene;
+	int			returnvalue;
+
+	if (argc != 2)
+		return (-1); // geen juiste argumenten error
+	scene = scene_init();
+	printf("het begint hier");
+
+	if (!scene)
+		return (-1); // error
+	returnvalue = parser(argv[1], scene);
+	printf("het begint hier");
+
+	printscene(scene);
+	return (0);
+	//check returnvalue
+
+}
+
 // int		render_next_frame(t_truct *mystruct)
 // {
 // 	mlx_string_put (mystruct, void *win_ptr, int x, int y, int color, char *string );
@@ -50,33 +72,33 @@ void	my_mlx_pixel_put(t_truct *data, int x, int y, int color)
 // 	return (0);
 // }
 
-int		main(void)
-{
+// int		main(void) // dit is de main voor om te gebruiken
+// {
 
-	t_truct		mystruct;
-	void		*mlx_win;
-	int			i;
+// 	t_truct		mystruct;
+// 	void		*mlx_win;
+// 	int			i;
 
-    mystruct.mlx = mlx_init();
-	mlx_win = mlx_new_window(mystruct.mlx, 1000, 1000, "Hello world");
-	mystruct.img = mlx_new_image(mystruct.mlx, 1000, 1000);
-	mystruct.addr = mlx_get_data_addr(mystruct.img, &mystruct.bits_per_pixel, &mystruct.line_length,
-		&mystruct.endian);
-	i = 0;
-	mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
-	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
-	mlx_loop(mystruct.mlx);
-	// while (i < 1000)
-	// {
-	// 	mystruct.i = i;
-	// 	printf("TEST")
-	// 	// mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
-	// 	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
-	// 	mlx_loop(mystruct.mlx);
-	// }
+//     mystruct.mlx = mlx_init();
+// 	mlx_win = mlx_new_window(mystruct.mlx, 1000, 1000, "Hello world");
+// 	mystruct.img = mlx_new_image(mystruct.mlx, 1000, 1000);
+// 	mystruct.addr = mlx_get_data_addr(mystruct.img, &mystruct.bits_per_pixel, &mystruct.line_length,
+// 		&mystruct.endian);
+// 	i = 0;
+// 	mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
+// 	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
+// 	mlx_loop(mystruct.mlx);
+// 	// while (i < 1000)
+// 	// {
+// 	// 	mystruct.i = i;
+// 	// 	printf("TEST")
+// 	// 	// mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
+// 	// 	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
+// 	// 	mlx_loop(mystruct.mlx);
+// 	// }
 
-    // mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
-}
+//     // mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
+// }
 
 // int		main(void)
 // {

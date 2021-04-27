@@ -48,7 +48,7 @@ ray_trace(t_scene *scene)
 
 	scene->framebuffer = malloc(sizeof(scene->resolution->x * scene->resolution->y));
 	if (!scene->framebuffer)
-		return (); // fout
+		return (-1); // fout
 	y = 0;
 	while (y < scene->resolution->y)
 	{

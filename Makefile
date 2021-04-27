@@ -6,7 +6,7 @@
 #    By: akant <akant@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/04/08 10:27:23 by akant         #+#    #+#                  #
-#    Updated: 2021/04/08 15:47:34 by akant         ########   odam.nl          #
+#    Updated: 2021/04/27 17:11:33 by akant         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,18 +26,28 @@
 # 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 NAME = minirt
-OBJ = minirt.o
+# OBJ = minirt.o init.o parser.o identifiers1.o identifiers2.o init.o \
+# 		listfunctions.o
+SRCS = minirt.c init.c parser.c identifiers1.c identifiers2.c \
+		listfunctions.c get_next_line/get_next_line.c \
+		get_next_line/get_next_line_utils.c parsehelperfunctions.c
+OBJ = $(SRCS:%.c=%.o)
 FLAGS = -Wall -Wextra -Werror
+LIBFTLIBRARY = ./libft/libft.a
+GNLLIBRARY = ./get_next_line/get_next_line.a
+# SRCS = init.c parser.c
 
 all: $(NAME)
-# $(NAME):
-#   gcc $(FLAGS) -o $(NAME) $(SRCS)
-#to update
+
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(MAKE) -C ./libft
+	ar -rcs $(NAME) $(OBJ) $(LIBFTLIBRARY)
+	ar -t $(LIBFTLIBRARY)
+	$(CC) $(OBJ) -Llibft/ -llibft -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
 clean:
 	rm -f *.o
 fclean: clean

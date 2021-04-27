@@ -1,18 +1,18 @@
 #include "minirt.h"
 
-vec3f	*vector_deduction(vec3f *a, vec3f *b)
+t_vec3f	*vector_deduction(t_vec3f *a, t_vec3f *b)
 {
-	vec3f	*result;
-	result = malloc(sizeof(vec3f));
+	t_vec3f	*result;
+	result = malloc(sizeof(t_vec3f));
 	if (!result)
 		return (NULL);
-	result = a->x - b->x;
-	result = a->y - b->y;
-	result = a->z - b->z;
+	result->x = a->x - b->x;
+	result->y = a->y - b->y;
+	result->z = a->z - b->z;
 	return (result);
 }
 
-float	dotproduct(vec3f *a, vec3f *b)
+float	dotproduct(t_vec3f *a, t_vec3f *b)
 {
 	return (a->x * b->x + a->y * b->y +  a->z * b->z);
 }
@@ -61,10 +61,10 @@ float	intersect(t_ray *ray, t_sphere *sphere)
 	c = dotproduct(L, L) - sphere->dia * sphere->dia;
 	if (!abcformula(a, b, c, &x1, &x2))
 		return (-1); // geen snijpunten
-	if (*x1 < 0)
+	if (x1 < 0)
 	{
-		*x1 = *x2;
-		if (*x1 < 0)
+		x1 = x2;
+		if (x1 < 0)
 		return (-1);
 	}
 	return(x1);
