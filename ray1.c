@@ -56,7 +56,7 @@ ray_trace(t_scene *scene)
 		while (x < scene->resolution->x)
 		{
 			obj = 0;
-			closest_obj = 100000;
+			closest_obj = 100000; // INFINITY
 			ray = make_camera_ray(x, y, scene);
 			while (objects[obj])
 			{

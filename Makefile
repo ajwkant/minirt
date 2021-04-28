@@ -6,7 +6,7 @@
 #    By: akant <akant@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/04/08 10:27:23 by akant         #+#    #+#                  #
-#    Updated: 2021/04/27 17:11:33 by akant         ########   odam.nl          #
+#    Updated: 2021/04/28 16:12:17 by akant         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,12 @@ NAME = minirt
 # 		listfunctions.o
 SRCS = minirt.c init.c parser.c identifiers1.c identifiers2.c \
 		listfunctions.c get_next_line/get_next_line.c \
-		get_next_line/get_next_line_utils.c parsehelperfunctions.c
+		get_next_line/get_next_line_utils.c parsehelperfunctions.c \
+		identifierhelper.c print.c
 OBJ = $(SRCS:%.c=%.o)
 FLAGS = -Wall -Wextra -Werror
 LIBFTLIBRARY = ./libft/libft.a
-GNLLIBRARY = ./get_next_line/get_next_line.a
+# GNLLIBRARY = ./get_next_line/get_next_line.a
 # SRCS = init.c parser.c
 
 all: $(NAME)
@@ -44,8 +45,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(MAKE) -C ./libft
-	ar -rcs $(NAME) $(OBJ) $(LIBFTLIBRARY)
-	ar -t $(LIBFTLIBRARY)
+	# ar -rcs $(OBJ) $(LIBFTLIBRARY)
+	# ar -t $(LIBFTLIBRARY)
 	$(CC) $(OBJ) -Llibft/ -llibft -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:

@@ -5,13 +5,13 @@ int		identifier(char *str, t_scene *scene)
 	if (!ft_strncmp(str, "\n", 1)) // evt nog spaties voor een newline overslaan
 		return (1);
 	if (!ft_strncmp(str, "R ", 2))
-		return (resolution(scene->resolution, str + 1));
+		return (resolution(scene, str + 1));
 	if (!ft_strncmp(str, "A ", 2))
-		return (ambient(scene->ambient, str + 1));
+		return (ambient(scene, str + 1));
 	if (!ft_strncmp(str, "c ", 2))
-		return (cameraid(scene->camera, str + 1));
+		return (cameraid(scene, str + 1));
 	if (!ft_strncmp(str, "l ", 2))
-		return (lightid(scene->light, str + 1));
+		return (lightid(scene, str + 1));
 	if (!ft_strncmp(str, "pl ", 3))
 		return (planeid(scene, str + 1));
 	if (!ft_strncmp(str, "sp ", 3))
@@ -38,7 +38,11 @@ int		parser(char *file, t_scene *scene)
 	ret = get_next_line(fd, &line);
 	while (ret >= 0)
 	{
+		write(1, "Z", 1);
 		error = identifier(line, scene); // check returnvalue
+		// printf("error: %d\n", error);
+		if (error == -1)
+			return (-1);
 		if (ret == 0) // nog passende error dingen schrijven
 			break ;
 		ret = get_next_line(fd, &line);

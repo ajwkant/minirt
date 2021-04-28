@@ -41,21 +41,15 @@ void	my_mlx_pixel_put(t_truct *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-int	main(int argc, char **argv)
+int	main(int argc,char **argv)
 {
-	t_scene		*scene;
+	t_scene		scene;
 	int			returnvalue;
 
 	if (argc != 2)
 		return (-1); // geen juiste argumenten error
 	scene = scene_init();
-	printf("het begint hier");
-
-	if (!scene)
-		return (-1); // error
-	returnvalue = parser(argv[1], scene);
-	printf("het begint hier");
-
+	returnvalue = parser(argv[1], &scene);
 	printscene(scene);
 	return (0);
 	//check returnvalue
