@@ -14,7 +14,7 @@ int		floatindex(char *str)
 	int i;
 
 	i = 0;
-	while (ft_isdigit(str[i]) || str[i] == '.')
+	while (ft_isdigit(str[i]) || str[i] == '.' || str[i] == '-')
 		i++;
 	return (i);
 }
@@ -26,24 +26,24 @@ int		readint(char *str, int *i, char c)
 	*i = skipchar(str, *i, c);
 	if (*i == -1) // errorcheck
 		return (-1);
-	if (!ft_isdigit(str[*i]))
+	if (!ft_isdigit(str[*i]) && str[*i] != '-')
 		return (-1); // proper errorcode
-	res = ft_atoi(str);
-	*i += floatindex(str);
+	res = ft_atoi(str + *i);
+	*i += floatindex(str + *i);
 	return (res);
 }
 
 float	readfloat(char *str, int *i, char c)
 {
-	int res;
+	float res;
 
 	*i = skipchar(str, *i, c);
 	if (*i == -1) // errorcheck
 		return (-1);
-	if (!ft_isdigit(str[*i]))
+	if (!ft_isdigit(str[*i]) && str[*i] != '-')
 		return (-1); // proper errorcode
-	res = ft_atof(str);
-	*i += floatindex(str);
+	res = ft_atof(str + *i);
+	*i += floatindex(str + *i);
 	return (res);
 }
 

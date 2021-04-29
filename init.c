@@ -13,15 +13,18 @@ t_scene		scene_init(void)
 	return (scene);
 }
 
-t_object	object_init(void)
+t_object	*object_init(void)
 {
-	t_object object;
+	t_object *object;
 
-	object.sphere = NULL;
-	object.plane = NULL;
-	object.square = NULL;
-	object.cylinder = NULL;
-	object.triangle = NULL;
-	object.next = NULL;
+	object = malloc(sizeof(t_object));
+	if (!object)
+		return (NULL);
+	object->sphere = NULL;
+	object->plane = NULL;
+	object->square = NULL;
+	object->cylinder = NULL;
+	object->triangle = NULL;
+	object->next = NULL;
 	return (object);
 }

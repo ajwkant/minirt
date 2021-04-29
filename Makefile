@@ -6,7 +6,7 @@
 #    By: akant <akant@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/04/08 10:27:23 by akant         #+#    #+#                  #
-#    Updated: 2021/04/28 16:12:17 by akant         ########   odam.nl          #
+#    Updated: 2021/04/29 13:53:53 by akant         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ NAME = minirt
 SRCS = minirt.c init.c parser.c identifiers1.c identifiers2.c \
 		listfunctions.c get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c parsehelperfunctions.c \
-		identifierhelper.c print.c
+		vec_rgb_reader.c print.c
 OBJ = $(SRCS:%.c=%.o)
 FLAGS = -Wall -Wextra -Werror
 LIBFTLIBRARY = ./libft/libft.a

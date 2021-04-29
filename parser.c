@@ -2,7 +2,7 @@
 
 int		identifier(char *str, t_scene *scene)
 {
-	if (!ft_strncmp(str, "\n", 1)) // evt nog spaties voor een newline overslaan
+	if (!ft_strncmp(str, "\n", 1))
 		return (1);
 	if (!ft_strncmp(str, "R ", 2))
 		return (resolution(scene, str + 1));
@@ -13,15 +13,15 @@ int		identifier(char *str, t_scene *scene)
 	if (!ft_strncmp(str, "l ", 2))
 		return (lightid(scene, str + 1));
 	if (!ft_strncmp(str, "pl ", 3))
-		return (planeid(scene, str + 1));
+		return (planeid(scene, str + 2));
 	if (!ft_strncmp(str, "sp ", 3))
-		return (sphereid(scene, str + 1)); 
+		return (sphereid(scene, str + 2)); 
 	if (!ft_strncmp(str, "sq ", 3))
-		return (squareid(scene, str + 1));
+		return (squareid(scene, str + 2));
 	if (!ft_strncmp(str, "cy ", 3))
-		return (cylinderid(scene, str + 1));
+		return (cylinderid(scene, str + 2));
 	if (!ft_strncmp(str, "tr ", 3))
-		return (triangleid(scene, str + 1));
+		return (triangleid(scene, str + 2));
 	return (-1);
 }
 
@@ -38,9 +38,8 @@ int		parser(char *file, t_scene *scene)
 	ret = get_next_line(fd, &line);
 	while (ret >= 0)
 	{
-		write(1, "Z", 1);
 		error = identifier(line, scene); // check returnvalue
-		// printf("error: %d\n", error);
+		free(line);
 		if (error == -1)
 			return (-1);
 		if (ret == 0) // nog passende error dingen schrijven

@@ -41,6 +41,8 @@ void	my_mlx_pixel_put(t_truct *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
+
+// free functie
 int	main(int argc,char **argv)
 {
 	t_scene		scene;
@@ -50,7 +52,8 @@ int	main(int argc,char **argv)
 		return (-1); // geen juiste argumenten error
 	scene = scene_init();
 	returnvalue = parser(argv[1], &scene);
-	printscene(scene);
+	ray_trace(&scene);
+	// printscene(scene);
 	return (0);
 	//check returnvalue
 
