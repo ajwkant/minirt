@@ -33,33 +33,16 @@ int		close_function(int keycode, t_vars *vars)
 	return (1);
 }
 
-void	my_mlx_pixel_put(t_truct *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color)
 {
-    char    *dst;
+    char	*dst;
 
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+    dst = scene->addr + (y * scene->resolution->x + x * (scene->bits_per_pixel / 8));
     *(unsigned int*)dst = color;
 }
 
-
-// free functie
-int	main(int argc,char **argv)
-{
-	t_scene		scene;
-	int			returnvalue;
-
-	if (argc != 2)
-		return (-1); // geen juiste argumenten error
-	scene = scene_init();
-	returnvalue = parser(argv[1], &scene);
-	ray_trace(&scene);
-	// printscene(scene);
-	return (0);
-	//check returnvalue
-
-}
-
-// int		render_next_frame(t_truct *mystruct)
+// Doesn't work yet
+//  int		render_next_frame(t_truct *mystruct)
 // {
 // 	mlx_string_put (mystruct, void *win_ptr, int x, int y, int color, char *string );
 // 	if (mystruct->i < 490)
@@ -69,30 +52,64 @@ int	main(int argc,char **argv)
 // 	return (0);
 // }
 
-// int		main(void) // dit is de main voor om te gebruiken
+
+// free functie
+// int	main(int argc,char **argv)
 // {
+// 	t_scene		scene;
+// 	int			returnvalue;
 
-// 	t_truct		mystruct;
-// 	void		*mlx_win;
-// 	int			i;
+// 	if (argc != 2)
+// 		return (-1); // geen juiste argumenten error
+// 	scene = scene_init();
+// 	returnvalue = parser(argv[1], &scene);
+// 	ray_trace(&scene);
+// 	printframebuffer(scene);
+// 	// printscene(scene);
+// 	return (0);
+// 	//check returnvalue
+// }
 
-//     mystruct.mlx = mlx_init();
-// 	mlx_win = mlx_new_window(mystruct.mlx, 1000, 1000, "Hello world");
-// 	mystruct.img = mlx_new_image(mystruct.mlx, 1000, 1000);
-// 	mystruct.addr = mlx_get_data_addr(mystruct.img, &mystruct.bits_per_pixel, &mystruct.line_length,
-// 		&mystruct.endian);
-// 	i = 0;
-// 	mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
-// 	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
-// 	mlx_loop(mystruct.mlx);
-// 	// while (i < 1000)
-// 	// {
-// 	// 	mystruct.i = i;
-// 	// 	printf("TEST")
-// 	// 	// mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
-// 	// 	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
-// 	// 	mlx_loop(mystruct.mlx);
-// 	// }
+int		main(void) // dit is de main voor om te gebruiken
+{
+
+	t_scene		scene;
+	void		*mlx_win;
+	int			x;
+	int			y;
+
+	scene = scene_init();
+	returnvalue = parser(argv[1], &scene);
+    scene.mlx = mlx_init();
+	mlx_win = mlx_new_window(scene.mlx, 1000, 1000, "Hello world");
+	scene.img = mlx_new_image(scene.mlx, 1000, 1000);
+	scene.addr = mlx_get_data_addr(scene.img, &scene.bits_per_pixel, &scene->resolution->x, // line_length,
+		&scene.endian);
+	// i = 0;
+	// mlx_loop_hook(scene.mlx, render_next_frame, &scene);
+	x = 0;
+	y = 0;
+	while (y < scene->resolution->y)
+	{
+		while (x < scene->resolution->x)
+		{
+			my_mlx_pixel_put(scene, x, y, ); // color doen ---------------
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	mlx_put_image_to_window(scene.mlx, mlx_win, scene.img, 0, 0);
+	mlx_loop(scene.mlx);
+}
+	// while (i < 1000)
+	// {
+	// 	mystruct.i = i;
+	// 	printf("TEST")
+	// 	// mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
+	// 	mlx_put_image_to_window(mystruct.mlx, mlx_win, mystruct.img, 0, 0);
+	// 	mlx_loop(mystruct.mlx);
+	// }
 
 //     // mlx_loop_hook(mystruct.mlx, render_next_frame, &mystruct);
 // }

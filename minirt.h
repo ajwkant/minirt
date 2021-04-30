@@ -117,7 +117,11 @@ typedef struct			s_object
 typedef struct			s_scene
 {
 	void				*mlx;
-	t_vec3f				*framebuffer;
+	void				*img;
+	char				*addr;
+	int					bits_per_pixel;
+	int					endian;
+	t_rgb				*framebuffer;
 	t_res				*resolution;
 	t_amb				*ambient;
 	t_cam				*camera;
@@ -176,4 +180,9 @@ void	printscene(t_scene scene);
 void	add_last_object(t_scene *scene, t_object *object);
 void	camera_list_last(t_scene *scene, t_cam *cam);
 void	light_list_last(t_scene *scene, t_light *light);
+// Ray1c
+int		ray_trace(t_scene *scene);
+
+// Intersect
+float	intersect(t_ray *ray, t_sphere *sphere);
 #endif

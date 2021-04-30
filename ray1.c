@@ -24,8 +24,8 @@ t_ray	*make_camera_ray(int x, int y, t_scene *scene)
 		return (NULL);
 	ray->place = scene->camera->place;
 	ray->direction->x = (2 * (((int)x + 0.5) / scene->resolution->x) - 1)
-		* scene->resolution->x / scene->resolution->y * (tan(M_PI * scene->camera->vof / 360));
-	ray->direction->y = 1 - 2 * (((int)y + 0.5) / scene->resolution->y) * (tan(M_PI * scene->camera->vof / 360));
+		* scene->resolution->x / scene->resolution->y * (tan(M_PI * scene->camera->fov / 360));
+	ray->direction->y = 1 - 2 * (((int)y + 0.5) / scene->resolution->y) * (tan(M_PI * scene->camera->fov / 360));
 	ray->direction->z = 1;
 	normalize_direction_vector(ray->direction);
 	return (ray);
@@ -36,17 +36,18 @@ t_ray	*make_camera_ray(int x, int y, t_scene *scene)
 // moet je elke framebuffer malloccen?
 // functie maken die door alle objects heen loopt voor objects
 // Camera verplaatsbaar maken
-ray_trace(t_scene *scene)
+int		ray_trace(t_scene *scene)
 {
 	int		x;
 	int		y;
 	int		obj;
 	int		closest_obj;
 	int		distance;
+	t_object	*current;
 
 	t_ray	*ray;
 
-	scene->framebuffer = malloc(sizeof(scene->resolution->x * scene->resolution->y));
+	scene->framebuffer = malloc(scene->resolution->x * scene->resolution->y * sizeof(t_vec3f));
 	if (!scene->framebuffer)
 		return (-1); // fout
 	y = 0;
@@ -58,19 +59,21 @@ ray_trace(t_scene *scene)
 			obj = 0;
 			closest_obj = 100000; // INFINITY
 			ray = make_camera_ray(x, y, scene);
-			while (objects[obj])
+			current = scene->object;
+			while (current)
 			{
-				distance = intersect(ray, sphere); //, objects[obj]); // objects maken, voorlopig 1 sphere
+				distance = intersect(ray, current->sphere); //, objects[obj]); // objects maken, voorlopig 1 sphere
 				if (distance < closest_obj && !(distance < 0))
 				{
 					closest_obj = distance;
-					framebuffer[y * scene->width + x] = color(objects[obj].color);
+					scene->framebuffer[y * scene->resolution->x + x] = *(current->sphere->rgb);		// color(objects[obj].color); // kleur nog decoden in hex oid
 				}
-				obj++;
+				current = current->next;
 			}
 			x++;
 		}
 		y++;
 	}
+	return (1); // nog goed maken
 }
 

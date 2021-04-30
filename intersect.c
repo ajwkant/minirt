@@ -20,7 +20,7 @@ float	dotproduct(t_vec3f *a, t_vec3f *b)
 int		abcformula(float a, float b, float c, int *x1, int *x2)
 {
 	float discriminator;
-	float q;
+	// float q; // nog checken uit de tutorial
 	float temp;
 
 	discriminator = b * b - 4 * a * c;
@@ -29,7 +29,7 @@ int		abcformula(float a, float b, float c, int *x1, int *x2)
 	if (discriminator == 0)
 	{
 		*x1 = -b / (2  * a);
-		*x2 = x1;
+		*x2 = *x1;
 		return (1);
 	}
 	*x1 = (-b + sqrt(discriminator)) / (2  * a);
