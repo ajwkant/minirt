@@ -33,11 +33,11 @@ int		close_function(int keycode, t_vars *vars)
 	return (1);
 }
 
-void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color)
+void	my_mlx_pixel_put(t_scene *scene, int x, int y, unsigned int color)
 {
     char	*dst;
 
-    dst = scene->addr + (y * scene->resolution->x + x * (scene->bits_per_pixel / 8));
+    dst = scene->address + (y * scene->line_size + x * (scene->img->bits_per_pixel / 8));
     *(unsigned int*)dst = color;
 }
 
@@ -70,36 +70,49 @@ void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color)
 // 	//check returnvalue
 // }
 
-int		main(void) // dit is de main voor om te gebruiken
+int		main(int argc, char **argv) // dit is de main voor om te gebruiken
 {
 
 	t_scene		scene;
 	void		*mlx_win;
 	int			x;
 	int			y;
+	int			returnvalue;
+	unsigned int	rgb;
 
-	scene = scene_init();
+	if (argc != 2)
+		return (-1);
+	scene_init(&scene);
 	returnvalue = parser(argv[1], &scene);
-    scene.mlx = mlx_init();
-	mlx_win = mlx_new_window(scene.mlx, 1000, 1000, "Hello world");
-	scene.img = mlx_new_image(scene.mlx, 1000, 1000);
-	scene.addr = mlx_get_data_addr(scene.img, &scene.bits_per_pixel, &scene->resolution->x, // line_length,
-		&scene.endian);
+	if (returnvalue == -1)
+		return (-1);
+	returnvalue = ray_trace(&scene);
+	scene.mlx = mlx_init();
+	mlx_win = mlx_new_window(scene.mlx, 100, 10, "Hello world");
+	scene.img_ptr = mlx_new_image(scene.mlx, 100, 100);
+	scene.address = mlx_get_data_addr(scene.img_ptr, &scene.bits_per_pixel, &scene.line_size,
+		&scene.endian);	
 	// i = 0;
 	// mlx_loop_hook(scene.mlx, render_next_frame, &scene);
 	x = 0;
 	y = 0;
-	while (y < scene->resolution->y)
+	// printf("x: %d, y: %d\n", scene.resolution->x, scene.resolution->y);
+	while (y < scene.resolution->y)
 	{
-		while (x < scene->resolution->x)
+		while (x < scene.resolution->x)
 		{
-			my_mlx_pixel_put(scene, x, y, ); // color doen ---------------
+			rgb = make_rgb(scene.framebuffer[y * scene.resolution->x + x]);
+			printf("int rgb: %d\n", rgb);
+			write(1, "X", 1);
+			// printf("x: %d, y: %d\n", x, y);
+			my_mlx_pixel_put(scene.img_ptr, x, y, rgb);
+			write(1, "Y", 1);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	mlx_put_image_to_window(scene.mlx, mlx_win, scene.img, 0, 0);
+	mlx_put_image_to_window(scene.mlx, mlx_win, scene.img_ptr, 0, 0);
 	mlx_loop(scene.mlx);
 }
 	// while (i < 1000)

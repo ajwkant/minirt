@@ -27,3 +27,17 @@ t_vec3f	*vec_reader(char *str, int *i)
 	vec->z = readfloat(str, i, ',');
 	return (vec);
 }
+
+unsigned int	make_rgb(t_rgb vec)
+{
+	unsigned int rgb;
+
+	// write(1, "Y", 1);
+	rgb = vec.r;
+	// write(1, "Y", 1);
+	rgb = (rgb << 8) + vec.g;
+	// write(1, "Y", 1);
+	rgb = (rgb << 8) + vec.b;
+	// write(1, "Y", 1);
+	return (rgb);
+}

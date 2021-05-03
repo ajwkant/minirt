@@ -72,6 +72,7 @@ int		ray_trace(t_scene *scene)
 			}
 			x++;
 		}
+		x = 0;
 		y++;
 	}
 	return (1); // nog goed maken

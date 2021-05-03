@@ -114,13 +114,24 @@ typedef struct			s_object
 	void				*next;
 }						t_object;
 
+typedef struct			s_img
+{
+	// void				*img_ptr;
+	// char				*address;
+	int					bits_per_pixel;
+	int					line_size;
+	int					endian;
+}						t_img;
+
 typedef struct			s_scene
 {
 	void				*mlx;
-	void				*img;
-	char				*addr;
+	void				*img_ptr;
+	char				*address;
 	int					bits_per_pixel;
+	int					line_size;
 	int					endian;
+	t_img				*img;
 	t_rgb				*framebuffer;
 	t_res				*resolution;
 	t_amb				*ambient;
@@ -167,8 +178,9 @@ int		triangleid(t_scene *scene, char *str);
 // Vec_rgb_reader
 t_rgb	*rgb_reader(char *str, int *i);
 t_vec3f	*vec_reader(char *str, int *i);
+unsigned int	make_rgb(t_rgb vec);
 // Init
-t_scene		scene_init(void);
+void	scene_init(t_scene *scene);
 t_object	*object_init(void);
 
 // Print

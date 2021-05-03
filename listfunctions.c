@@ -20,6 +20,7 @@ void	camera_list_last(t_scene *scene, t_cam *cam)
 	t_cam *temp;
 
 	temp = scene->camera;
+
 	if (!scene->camera)
 		scene->camera = cam;
 	else

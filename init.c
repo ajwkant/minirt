@@ -1,16 +1,13 @@
 #include "minirt.h"
 
-t_scene		scene_init(void)
+void	scene_init(t_scene *scene)
 {
-	t_scene scene;
-
-	scene.framebuffer = NULL;
-	scene.resolution = NULL;
-	scene.ambient = NULL;
-	scene.camera = NULL;
-	scene.light = NULL;
-	scene.object = NULL;
-	return (scene);
+	scene->framebuffer = NULL;
+	scene->resolution = NULL;
+	scene->ambient = NULL;
+	scene->camera = NULL;
+	scene->light = NULL;
+	scene->object = NULL;
 }
 
 t_object	*object_init(void)

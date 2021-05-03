@@ -18,6 +18,7 @@ int		resolution(t_scene *scene, char *str) // Valuecheck
 	res->x = readint(str, &i, ' ');
 	res->y = readint(str, &i, ' ');
 	scene->resolution = res;
+	scene->line_size = res->x;
 	return (1);
 }
 
