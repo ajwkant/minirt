@@ -12,6 +12,12 @@ void	normalize_direction_vector(t_vec3f *direction)
 	direction->z /= dlen;
 }
 
+void	freeray(t_ray *ray)
+{
+	free(ray->direction);
+	free(ray);
+}
+
 // First make the camera always be on the origin
 t_ray	*make_camera_ray(int x, int y, t_scene *scene)
 {
@@ -31,50 +37,46 @@ t_ray	*make_camera_ray(int x, int y, t_scene *scene)
 	return (ray);
 }
 
-
-
-// moet je elke framebuffer malloccen?
-// functie maken die door alle objects heen loopt voor objects
 // Camera verplaatsbaar maken
 int		ray_trace(t_scene *scene)
 {
 	int		x;
 	int		y;
-	int		obj;
-	int		closest_obj;
-	int		distance;
+	float		closest_obj;
+	float		distance;
 	t_object	*current;
-
+	unsigned int	rgb;
 	t_ray	*ray;
 
-	scene->framebuffer = malloc(scene->resolution->x * scene->resolution->y * sizeof(t_vec3f));
-	if (!scene->framebuffer)
-		return (-1); // fout
 	y = 0;
 	while (y < scene->resolution->y)
 	{
 		x = 0;
 		while (x < scene->resolution->x)
 		{
-			obj = 0;
-			closest_obj = 100000; // INFINITY
+			closest_obj = INFINITY;
+			distance = INFINITY;
 			ray = make_camera_ray(x, y, scene);
 			current = scene->object;
 			while (current)
 			{
-				distance = intersect(ray, current->sphere); //, objects[obj]); // objects maken, voorlopig 1 sphere
-				if (distance < closest_obj && !(distance < 0))
+				distance = intersect(ray, current->sphere); // voorlopig sphere
+				if (distance < closest_obj && distance > 0)
 				{
 					closest_obj = distance;
-					scene->framebuffer[y * scene->resolution->x + x] = *(current->sphere->rgb);		// color(objects[obj].color); // kleur nog decoden in hex oid
+					rgb = make_rgb(*(current->sphere->rgb));
 				}
 				current = current->next;
 			}
+			if (closest_obj < INFINITY)
+				my_mlx_pixel_put(scene, x, y, rgb);
+			else
+				my_mlx_pixel_put(scene, x, y, 0x000000);
 			x++;
+			freeray(ray);
 		}
 		x = 0;
 		y++;
 	}
 	return (1); // nog goed maken
 }
-

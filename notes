@@ -6,5 +6,11 @@ Parser:
 	goede errormessages geven
 	check returnvalues van inlezen in elke identifier functie
 
+Camera:
+	Camera rotaties
+	Camera's switchen
+
+
+
 includes squigle lines
 update norminette

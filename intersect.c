@@ -55,17 +55,18 @@ float	intersect(t_ray *ray, t_sphere *sphere)
 
 	L = vector_deduction(ray->place, sphere->place);
 	a = dotproduct(ray->direction, ray->direction);
-	if (a != 1)
-		return (-1); // foutmelding
+	// if (a != 1)
+	// 	return (-1); // foutmelding
 	b = 2 * dotproduct(ray->direction, L);
 	c = dotproduct(L, L) - sphere->dia * sphere->dia;
+	free(L);
 	if (!abcformula(a, b, c, &x1, &x2))
-		return (-1); // geen snijpunten
+		return (INFINITY); // geen snijpunten
 	if (x1 < 0)
 	{
 		x1 = x2;
 		if (x1 < 0)
-		return (-1);
+		return (INFINITY);
 	}
 	return(x1);
 }

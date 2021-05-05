@@ -126,13 +126,13 @@ typedef struct			s_img
 typedef struct			s_scene
 {
 	void				*mlx;
+	void				*window;
 	void				*img_ptr;
 	char				*address;
 	int					bits_per_pixel;
 	int					line_size;
 	int					endian;
 	t_img				*img;
-	t_rgb				*framebuffer;
 	t_res				*resolution;
 	t_amb				*ambient;
 	t_cam				*camera;
@@ -197,4 +197,8 @@ int		ray_trace(t_scene *scene);
 
 // Intersect
 float	intersect(t_ray *ray, t_sphere *sphere);
+
+// Minirt.c
+void	my_mlx_pixel_put(t_scene *scene, int x, int y, unsigned int color);
+
 #endif

@@ -6,7 +6,7 @@
 #    By: akant <akant@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/04/08 10:27:23 by akant         #+#    #+#                  #
-#    Updated: 2021/04/30 15:16:44 by akant         ########   odam.nl          #
+#    Updated: 2021/05/04 14:53:26 by akant         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,7 @@ SRCS = minirt.c init.c parser.c identifiers1.c identifiers2.c \
 OBJ = $(SRCS:%.c=%.o)
 FLAGS = -Wall -Wextra -Werror
 LIBFTLIBRARY = ./libft/libft.a
-# GNLLIBRARY = ./get_next_line/get_next_line.a
-# SRCS = init.c parser.c
+# TEMPARCH = minirt.a
 
 all: $(NAME)
 
@@ -45,9 +44,10 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(MAKE) -C ./libft
-	# ar -rcs $(OBJ) $(LIBFTLIBRARY)
-	# ar -t $(LIBFTLIBRARY)
-	$(CC) $(OBJ) -Llibft/ -llibft -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	# ar -rcs $(TEMPARCH) $(OBJ)
+	# ar -t $(TEMPARCH)
+	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit $(LIBFTLIBRARY) -o $(NAME)
+	# $(CC) $(OBJ) -Llibft/ -llibft -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
 	rm -f *.o

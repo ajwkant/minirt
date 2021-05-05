@@ -2,7 +2,6 @@
 
 void	scene_init(t_scene *scene)
 {
-	scene->framebuffer = NULL;
 	scene->resolution = NULL;
 	scene->ambient = NULL;
 	scene->camera = NULL;
