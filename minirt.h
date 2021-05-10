@@ -114,14 +114,14 @@ typedef struct			s_object
 	void				*next;
 }						t_object;
 
-typedef struct			s_img
-{
-	// void				*img_ptr;
-	// char				*address;
-	int					bits_per_pixel;
-	int					line_size;
-	int					endian;
-}						t_img;
+// typedef struct			s_img
+// {
+// 	// void				*img_ptr;
+// 	// char				*address;
+// 	int					bits_per_pixel;
+// 	int					line_size;
+// 	int					endian;
+// }						t_img;
 
 typedef struct			s_scene
 {
@@ -132,7 +132,7 @@ typedef struct			s_scene
 	int					bits_per_pixel;
 	int					line_size;
 	int					endian;
-	t_img				*img;
+	// t_img				*img;
 	t_res				*resolution;
 	t_amb				*ambient;
 	t_cam				*camera;
@@ -179,6 +179,9 @@ int		triangleid(t_scene *scene, char *str);
 t_rgb	*rgb_reader(char *str, int *i);
 t_vec3f	*vec_reader(char *str, int *i);
 unsigned int	make_rgb(t_rgb vec);
+t_rgb	*get_rgb(t_object *object);
+void	rgb_ratio(t_rgb	*rgb, float fr);
+unsigned int	make_rgb(t_rgb vec);
 // Init
 void	scene_init(t_scene *scene);
 t_object	*object_init(void);
@@ -193,12 +196,32 @@ void	add_last_object(t_scene *scene, t_object *object);
 void	camera_list_last(t_scene *scene, t_cam *cam);
 void	light_list_last(t_scene *scene, t_light *light);
 // Ray1c
-int		ray_trace(t_scene *scene);
+void		freeray(t_ray *ray);
+t_ray		*make_camera_ray(int x, int y, t_scene *scene);
+t_object	*intersect_object_list(t_scene *scene, float *closest, t_ray *ray);
+int			ray_trace(t_scene *scene);
 
 // Intersect
 float	intersect(t_ray *ray, t_sphere *sphere);
 
 // Minirt.c
 void	my_mlx_pixel_put(t_scene *scene, int x, int y, unsigned int color);
+// Ray_math
+t_vec3f	*vector_deduction(t_vec3f *a, t_vec3f *b);
+float	dotproduct(t_vec3f *a, t_vec3f *b);
+void	normalize_vector(t_vec3f *direction);
+t_vec3f	*find_coordinates(t_ray *ray, float distance);
+// Lightray
+t_ray	*make_light_ray(t_scene *scene, t_vec3f *int_point);
+t_ray	*light_ray_distance(t_scene *scene, t_vec3f *int_point, float *distance);
+t_ray	*light_reaches_point(t_scene *scene, t_ray *ray, float distance, t_vec3f *int_point);
+unsigned int	compute_shading(t_scene *scene, t_ray *ray, float distance, t_object *object);
+// Normal
+t_vec3f	*find_normal_at_point(t_object *object, t_vec3f *int_point);
+t_vec3f	*find_sphere_normal(t_sphere *sphere, t_vec3f *int_point);
+
+
+
+
 
 #endif

@@ -50,12 +50,8 @@ void	my_mlx_pixel_put(t_scene *scene, int x, int y, unsigned int color)
 //     return (1);
 // }
 
-
-
-//
-int		main(int argc, char **argv) // dit is de main voor om te gebruiken
+int		main(int argc, char **argv)
 {
-
 	t_scene		scene;
 	int			returnvalue;
 

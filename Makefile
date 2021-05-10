@@ -6,7 +6,7 @@
 #    By: akant <akant@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/04/08 10:27:23 by akant         #+#    #+#                  #
-#    Updated: 2021/05/04 14:53:26 by akant         ########   odam.nl          #
+#    Updated: 2021/05/10 10:48:06 by akant         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,13 @@
 NAME = minirt
 # OBJ = minirt.o init.o parser.o identifiers1.o identifiers2.o init.o \
 # 		listfunctions.o
-SRCS = minirt.c init.c parser.c identifiers1.c identifiers2.c \
-		listfunctions.c get_next_line/get_next_line.c \
-		get_next_line/get_next_line_utils.c parsehelperfunctions.c \
-		vec_rgb_reader.c print.c ray1.c intersect.c
+SRCS =	minirt.c init.c print.c \
+		parsing/parser.c parsing/identifiers1.c parsing/identifiers2.c \
+		parsing/listfunctions.c parsing/parsehelperfunctions.c \
+		parsing/vec_rgb_reader.c \
+		normal/normal.c \
+		get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+		ray/ray1.c ray/intersect.c ray/lightray.c ray/ray_math.c
 OBJ = $(SRCS:%.c=%.o)
 FLAGS = -Wall -Wextra -Werror
 LIBFTLIBRARY = ./libft/libft.a
