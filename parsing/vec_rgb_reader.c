@@ -10,8 +10,11 @@ t_rgb	*rgb_reader(char *str, int *i)
 	if (!rgb)
 		return (NULL);
 	rgb->r  = readint(str, i, ' ');
+	// rgb->r  = readfloat(str, i, ' ');
 	rgb->g = readint(str, i, ',');
+	// rgb->g = readfloat(str, i, ',');
 	rgb->b = readint(str, i, ',');
+	// rgb->b = readfloat(str, i, ',');
 	return (rgb);
 }
 
@@ -28,13 +31,13 @@ t_vec3f	*vec_reader(char *str, int *i)
 	return (vec);
 }
 
-unsigned int	make_rgb(t_rgb vec)
+unsigned int	make_rgb(t_rgb *vec, float ratio)
 {
 	unsigned int rgb;
 
-	rgb = vec.r;
-	rgb = (rgb << 8) + vec.g;
-	rgb = (rgb << 8) + vec.b;
+	rgb = vec->r * ratio;
+	rgb = (rgb << 8) + vec->g * ratio;
+	rgb = (rgb << 8) + vec->b * ratio;
 	return (rgb);
 }
 
@@ -51,11 +54,4 @@ t_rgb	*get_rgb(t_object *object)
 	if (object->triangle)
 		return (object->triangle->rgb);
 	return (NULL);
-}
-
-void	rgb_ratio(t_rgb	*rgb, float fr)
-{
-	rgb->r *= fr;
-	rgb->g *= fr;
-	rgb->b *= fr;
 }

@@ -178,10 +178,9 @@ int		triangleid(t_scene *scene, char *str);
 // Vec_rgb_reader
 t_rgb	*rgb_reader(char *str, int *i);
 t_vec3f	*vec_reader(char *str, int *i);
-unsigned int	make_rgb(t_rgb vec);
+unsigned int	make_rgb(t_rgb *vec, float ratio);
 t_rgb	*get_rgb(t_object *object);
 void	rgb_ratio(t_rgb	*rgb, float fr);
-unsigned int	make_rgb(t_rgb vec);
 // Init
 void	scene_init(t_scene *scene);
 t_object	*object_init(void);

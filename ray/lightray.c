@@ -61,6 +61,8 @@ unsigned int	compute_shading(t_scene *scene, t_ray *ray, float distance, t_objec
 	// rgbprint(object->sphere->rgb);
 	rgb_vec = get_rgb(object);
 	// rgbprint(rgb_vec);
-	rgb_ratio(rgb_vec, facing_ratio);
-	return (make_rgb(*rgb_vec));
+	return (make_rgb(rgb_vec, facing_ratio));
+
+	// rgb_ratio(rgb_vec, facing_ratio);
+	// return (make_rgb(*rgb_vec));
 }

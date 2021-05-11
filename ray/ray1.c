@@ -25,20 +25,6 @@ t_ray	*make_camera_ray(int x, int y, t_scene *scene)
 	return (ray);
 }
 
-// void	put_pixel_with_shading()
-// {
-// 	if (closest_obj < INFINITY)
-// 	{
-		
-// 		// put_pixel_wiith_shading(scene, x, y, ray, save_object);
-// 		my_mlx_pixel_put(scene, x, y, 0x000000);
-// 	}
-		
-// 		// my_mlx_pixel_put(scene, x, y, rgb);
-// 	else
-// 		my_mlx_pixel_put(scene, x, y, 0x000000);
-// }
-
 t_object	*intersect_object_list(t_scene *scene, float *closest, t_ray *ray)
 {
 	float		distance;
@@ -46,6 +32,7 @@ t_object	*intersect_object_list(t_scene *scene, float *closest, t_ray *ray)
 	// unsigned int	rgb;
 	t_object	*save_object;
 
+	save_object = NULL;
 	distance = INFINITY;
 	current = scene->object;
 	while (current)
@@ -55,7 +42,6 @@ t_object	*intersect_object_list(t_scene *scene, float *closest, t_ray *ray)
 		{
 			*closest = distance;
 			save_object = current;
-			// rgb = make_rgb(*(current->sphere->rgb));
 		}
 		current = current->next;
 	}
@@ -81,22 +67,11 @@ int		ray_trace(t_scene *scene)
 			distance = INFINITY;
 			ray = make_camera_ray(x, y, scene);
 			object = intersect_object_list(scene, &distance, ray); // check argumenten
-			// compute_shading(scene, ray, distance, object);
-			rgbprint(object->sphere->rgb); // ------------------
-			// Hij heeft geen rgb value in compute shading functie.. 
-
-
-
-
-
-
 			rgb = 0x000000;
 			if (distance < INFINITY)
 				rgb = compute_shading(scene, ray, distance, object);
-			// if (rgb != 0)
-			// 	printf("rgb: %u\n", rgb);
+			freeray(ray);
 			my_mlx_pixel_put(scene, x, y, rgb);
-			// put_pixel_with_shading(scene, x, y, rgb); // check argumenten
 			x++;
 		}
 		x = 0;
