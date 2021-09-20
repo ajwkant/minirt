@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   listfunctions.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: akant <akant@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/09/20 15:31:30 by akant         #+#    #+#                 */
+/*   Updated: 2021/09/20 15:31:32 by akant         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void	add_last_object(t_scene *scene, t_object *object)
@@ -13,22 +25,6 @@ void	add_last_object(t_scene *scene, t_object *object)
 	}
 	else
 		scene->object = object;
-}
-
-void	camera_list_last(t_scene *scene, t_cam *cam)
-{
-	t_cam *temp;
-
-	temp = scene->camera;
-
-	if (!scene->camera)
-		scene->camera = cam;
-	else
-	{
-		while (temp->next)
-			temp = temp->next;
-		temp->next = cam;
-	}
 }
 
 void	light_list_last(t_scene *scene, t_light *light)

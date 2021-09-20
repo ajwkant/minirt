@@ -26,7 +26,7 @@ int		abcformula(float a, float b, float c, float *x1, float *x2)
 	return (1);
 }
 
-float	intersect(t_ray *ray, t_sphere *sphere)
+float	intersect_sphere(t_ray *ray, t_sphere *sphere)
 {
 	t_vec3f *L;
 	float	a;
@@ -52,4 +52,14 @@ float	intersect(t_ray *ray, t_sphere *sphere)
 		return (INFINITY);
 	}
 	return(x1);
+}
+
+float	intersect(t_ray *ray, t_object *object_list)
+{
+	if (*object_list->sphere)
+		return (intersect_sphere(ray, object_list->sphere));
+	if (*object_list->plane)
+		return (intersect_plane(ray, object_list->plane));
+	if (*object_list->cylinder)
+		return (intersect_cylinder);
 }

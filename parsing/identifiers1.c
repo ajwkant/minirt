@@ -47,6 +47,8 @@ int		cameraid(t_scene *scene, char *str)
 	int		i;
 	t_cam	*new;
 
+	if (scene->camera)
+		return (0);
 	new = malloc(sizeof(t_cam));
 	if (!new)
 		return (-1);
@@ -54,8 +56,7 @@ int		cameraid(t_scene *scene, char *str)
 	new->place = vec_reader(str, &i);
 	new->direction = vec_reader(str, &i);
 	new->fov = readint(str, &i, ' ');
-	new->next = NULL;
-	camera_list_last(scene, new);
+	scene->camera = new;
 	return (1);
 }
 

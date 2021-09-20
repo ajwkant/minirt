@@ -37,7 +37,7 @@ t_object	*intersect_object_list(t_scene *scene, float *closest, t_ray *ray)
 	current = scene->object;
 	while (current)
 	{
-		distance = intersect(ray, current->sphere); // voorlopig sphere
+		distance = intersect(ray, current);
 		if (distance < *closest && distance > 0)
 		{
 			*closest = distance;

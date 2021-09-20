@@ -50,6 +50,12 @@ void	my_mlx_pixel_put(t_scene *scene, int x, int y, unsigned int color)
 //     return (1);
 // }
 
+// void	key_hook(int keycode, void *param)
+// {
+// 	printf("keycode: %d\n", keycode);
+// 	param = NULL;
+// }
+
 int		main(int argc, char **argv)
 {
 	t_scene		scene;
@@ -64,6 +70,7 @@ int		main(int argc, char **argv)
 
 	scene.mlx = mlx_init();
 	scene.window = mlx_new_window(scene.mlx, scene.resolution->x, scene.resolution->y, "Hello world");
+	// mlx_mouse_hook(scene.window, (void *)key_hook, &scene);
 	scene.img_ptr = mlx_new_image(scene.mlx, scene.resolution->x, scene.resolution->y);
 	scene.address = mlx_get_data_addr(scene.img_ptr, &scene.bits_per_pixel, &scene.line_size,
 		&scene.endian);

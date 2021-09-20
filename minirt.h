@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include "libft/libft.h"
 #include "get_next_line/get_next_line.h"
-#include <sys/stat.h> 
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <math.h>
 
@@ -15,7 +15,6 @@
     // char        	*addr;
     // int         	bits_per_pixel;
 
-// Een lange list maken van alle objecten
 
 typedef struct		s_vec3f
 {
@@ -54,7 +53,6 @@ typedef struct		s_cam
 	t_vec3f			*place;
 	t_vec3f			*direction;
 	int				fov;
-	void			*next;
 }					t_cam;
 
 typedef struct		s_light
@@ -79,13 +77,13 @@ typedef struct		s_plane
 	t_rgb			*rgb;
 }					t_plane;
 
-typedef struct		s_square
-{
-	t_vec3f			*place;
-	t_vec3f			*direction;
-	float			size;
-	t_rgb			*rgb;
-}					t_square;
+// typedef struct		s_square
+// {
+// 	t_vec3f			*place;
+// 	t_vec3f			*direction;
+// 	float			size;
+// 	t_rgb			*rgb;
+// }					t_square;
 
 typedef struct		s_cylinder
 {
@@ -96,21 +94,21 @@ typedef struct		s_cylinder
 	t_rgb			*rgb;
 }					t_cylinder;
 
-typedef struct		s_triangle
-{
-	t_vec3f			*p1;
-	t_vec3f			*p2;
-	t_vec3f			*p3;
-	t_rgb			*rgb;
-}					t_triangle;
+// typedef struct		s_triangle
+// {
+// 	t_vec3f			*p1;
+// 	t_vec3f			*p2;
+// 	t_vec3f			*p3;
+// 	t_rgb			*rgb;
+// }					t_triangle;
 
 typedef struct			s_object
 {
 	t_sphere			*sphere;
 	t_plane				*plane;
-	t_square			*square;
+	// t_square			*square;
 	t_cylinder			*cylinder;
-	t_triangle			*triangle;
+	// t_triangle			*triangle;
 	void				*next;
 }						t_object;
 
@@ -201,7 +199,8 @@ t_object	*intersect_object_list(t_scene *scene, float *closest, t_ray *ray);
 int			ray_trace(t_scene *scene);
 
 // Intersect
-float	intersect(t_ray *ray, t_sphere *sphere);
+float	intersect_sphere(t_ray *ray, t_sphere *sphere);
+float	intersect(t_ray *ray, t_object *object_list);
 
 // Minirt.c
 void	my_mlx_pixel_put(t_scene *scene, int x, int y, unsigned int color);
@@ -218,9 +217,5 @@ unsigned int	compute_shading(t_scene *scene, t_ray *ray, float distance, t_objec
 // Normal
 t_vec3f	*find_normal_at_point(t_object *object, t_vec3f *int_point);
 t_vec3f	*find_sphere_normal(t_sphere *sphere, t_vec3f *int_point);
-
-
-
-
 
 #endif
