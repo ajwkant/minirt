@@ -18,9 +18,9 @@ t_object	*object_init(void)
 		return (NULL);
 	object->sphere = NULL;
 	object->plane = NULL;
-	object->square = NULL;
+	// object->square = NULL;
 	object->cylinder = NULL;
-	object->triangle = NULL;
+	// object->triangle = NULL;
 	object->next = NULL;
 	return (object);
 }

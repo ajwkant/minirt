@@ -34,13 +34,12 @@ void	printscene(t_scene scene) // tot nu toe print ie alleen spheres
 		rgbprint(scene.ambient->rgb);
 		printf("\n");
 	}
-	while (scene.camera)
+	if (scene.camera)
 	{
 		printf("cam: place, direction, fov\n");
 		printvec3f(scene.camera->place);
 		printvec3f(scene.camera->direction);
 		printf("fov: %d\n\n", scene.camera->fov);
-		scene.camera = scene.camera->next;
 	}
 	while (scene.light)
 	{

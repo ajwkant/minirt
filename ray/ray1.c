@@ -64,13 +64,17 @@ int		ray_trace(t_scene *scene)
 		x = 0;
 		while (x < scene->resolution->x)
 		{
+			write(1, "A\n", 2);
 			distance = INFINITY;
 			ray = make_camera_ray(x, y, scene);
+			write(1, "B\n", 2);
 			object = intersect_object_list(scene, &distance, ray); // check argumenten
+			write(1, "C\n", 2);
 			rgb = 0x000000;
 			if (distance < INFINITY)
 				rgb = compute_shading(scene, ray, distance, object);
 			freeray(ray);
+			write(1, "D\n", 2);
 			my_mlx_pixel_put(scene, x, y, rgb);
 			x++;
 		}

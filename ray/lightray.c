@@ -49,7 +49,7 @@ unsigned int	compute_shading(t_scene *scene, t_ray *ray, float distance, t_objec
 	t_vec3f	*normal;
 	float	facing_ratio;
 	t_rgb	*rgb_vec;
-	// for (elk licht loopje)
+	// for (elk licht) loopje maken
 
 	lightray = light_reaches_point(scene, ray, distance, &int_point);
 	// printvec3f(lightray->direction);

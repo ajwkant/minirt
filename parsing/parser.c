@@ -8,20 +8,20 @@ int		identifier(char *str, t_scene *scene)
 		return (resolution(scene, str + 1));
 	if (!ft_strncmp(str, "A ", 2))
 		return (ambient(scene, str + 1));
-	if (!ft_strncmp(str, "c ", 2))
+	if (!ft_strncmp(str, "C ", 2))
 		return (cameraid(scene, str + 1));
 	if (!ft_strncmp(str, "l ", 2))
 		return (lightid(scene, str + 1));
 	if (!ft_strncmp(str, "pl ", 3))
 		return (planeid(scene, str + 2));
 	if (!ft_strncmp(str, "sp ", 3))
-		return (sphereid(scene, str + 2)); 
-	if (!ft_strncmp(str, "sq ", 3))
-		return (squareid(scene, str + 2));
+		return (sphereid(scene, str + 2));
+	// if (!ft_strncmp(str, "sq ", 3))
+	// 	return (squareid(scene, str + 2));
 	if (!ft_strncmp(str, "cy ", 3))
 		return (cylinderid(scene, str + 2));
-	if (!ft_strncmp(str, "tr ", 3))
-		return (triangleid(scene, str + 2));
+	// if (!ft_strncmp(str, "tr ", 3))
+	// 	return (triangleid(scene, str + 2));
 	return (-1);
 }
 

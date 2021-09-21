@@ -54,12 +54,26 @@ float	intersect_sphere(t_ray *ray, t_sphere *sphere)
 	return(x1);
 }
 
+float	intersect_plane(t_ray *ray, t_plane *plane)
+{
+	float	t;
+	t_vec3f	*temp;
+
+	temp = vector_deduction(plane->place, ray->place);
+	t = dotproduct(temp, plane->direction);
+	t /= dotproduct(ray->direction, plane->direction);
+	free(temp);
+	// printf("T: %f\n", t);
+	return (t);
+}
+
 float	intersect(t_ray *ray, t_object *object_list)
 {
-	if (*object_list->sphere)
+	if (object_list->sphere)
 		return (intersect_sphere(ray, object_list->sphere));
-	if (*object_list->plane)
+	if (object_list->plane)
 		return (intersect_plane(ray, object_list->plane));
-	if (*object_list->cylinder)
-		return (intersect_cylinder);
+	// if (*object_list->cylinder)
+	// 	return (intersect_cylinder);
+	return (0); // error oid?
 }
