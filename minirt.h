@@ -32,8 +32,8 @@ typedef struct		s_rgb
 
 typedef struct		s_ray
 {
-	t_vec3f			*place;
-	t_vec3f			*direction;
+	t_vec3f			place;
+	t_vec3f			direction;
 }					t_ray;
 
 typedef struct		s_res
@@ -45,36 +45,36 @@ typedef struct		s_res
 typedef struct		s_amb
 {
 	float			ratio;
-	t_rgb			*rgb;
+	t_rgb			rgb;
 }					t_amb;
 
 typedef struct		s_cam
 {
-	t_vec3f			*place;
-	t_vec3f			*direction;
+	t_vec3f			place;
+	t_vec3f			direction;
 	int				fov;
 }					t_cam;
 
 typedef struct		s_light
 {
-	t_vec3f			*place;
+	t_vec3f			place;
 	float			brightness;
-	t_rgb			*rgb;
+	t_rgb			rgb;
 	void			*next;
 }					t_light;
 
 typedef struct		s_sphere
 {
-	t_vec3f			*place;
+	t_vec3f			place;
 	float			dia;
-	t_rgb			*rgb;
+	t_rgb			rgb;
 }					t_sphere;
 
 typedef struct		s_plane
 {
-	t_vec3f			*place;
-	t_vec3f			*direction;
-	t_rgb			*rgb;
+	t_vec3f			place;
+	t_vec3f			direction;
+	t_rgb			rgb;
 }					t_plane;
 
 // typedef struct		s_square
@@ -87,11 +87,11 @@ typedef struct		s_plane
 
 typedef struct		s_cylinder
 {
-	t_vec3f			*place;
-	t_vec3f			*direction;
+	t_vec3f			place;
+	t_vec3f			direction;
 	float			diam;
 	float			height;
-	t_rgb			*rgb;
+	t_rgb			rgb;
 }					t_cylinder;
 
 // typedef struct		s_triangle
@@ -104,10 +104,13 @@ typedef struct		s_cylinder
 
 typedef struct			s_object
 {
-	t_sphere			*sphere;
-	t_plane				*plane;
+	int					is_sphere;
+	t_sphere			sphere;
+	int					is_plane;
+	t_plane				plane;
 	// t_square			*square;
-	t_cylinder			*cylinder;
+	int					is_cylinder;
+	t_cylinder			cylinder;
 	// t_triangle			*triangle;
 	void				*next;
 }						t_object;
@@ -131,9 +134,13 @@ typedef struct			s_scene
 	int					line_size;
 	int					endian;
 	// t_img				*img;
-	t_res				*resolution;
-	t_amb				*ambient;
-	t_cam				*camera;
+	int					res_is_set;
+	int					amb_is_set;
+	int					cam_is_set;
+
+	t_res				resolution;
+	t_amb				ambient;
+	t_cam				camera;
 	t_light				*light;
 	t_object			*object;
 	// int					x;
@@ -174,14 +181,16 @@ int		squareid(t_scene *scene, char *str);
 int		cylinderid(t_scene *scene, char *str);
 int		triangleid(t_scene *scene, char *str);
 // Vec_rgb_reader
-t_rgb	*rgb_reader(char *str, int *i);
-t_vec3f	*vec_reader(char *str, int *i);
-unsigned int	make_rgb(t_rgb *vec, float ratio);
-t_rgb	*get_rgb(t_object *object);
+t_rgb	rgb_reader(char *str, int *i);
+t_vec3f	vec_reader(char *str, int *i);
+unsigned int	make_rgb(t_rgb vec, float ratio);
+t_rgb	get_rgb(t_object *object);
 void	rgb_ratio(t_rgb	*rgb, float fr);
 // Init
-void	scene_init(t_scene *scene);
+void		scene_init(t_scene *scene);
 t_object	*object_init(void);
+t_vec3f		vec3f_init(void);
+t_ray	ray_init(void);
 
 // Print
 void	rgbprint(t_rgb *rgb);
@@ -194,28 +203,29 @@ void	camera_list_last(t_scene *scene, t_cam *cam);
 void	light_list_last(t_scene *scene, t_light *light);
 // Ray1c
 void		freeray(t_ray *ray);
-t_ray		*make_camera_ray(int x, int y, t_scene *scene);
-t_object	*intersect_object_list(t_scene *scene, float *closest, t_ray *ray);
-int			ray_trace(t_scene *scene);
+t_ray		make_camera_ray(t_scene scene, int x, int y);
+t_object	*intersect_object_list(t_scene scene, t_ray ray);
+int			ray_trace(t_scene scene);
 
 // Intersect
-float	intersect_sphere(t_ray *ray, t_sphere *sphere);
-float	intersect(t_ray *ray, t_object *object_list);
+float	intersect(t_ray ray, t_object *object_list);
+float	intersect_sphere(t_ray ray, t_sphere sphere);
+float	intersect_plane(t_ray ray, t_plane plane);
 
 // Minirt.c
-void	my_mlx_pixel_put(t_scene *scene, int x, int y, unsigned int color);
+void	my_mlx_pixel_put(t_scene scene, int x, int y, unsigned int color);
 // Ray_math
-t_vec3f	*vector_deduction(t_vec3f *a, t_vec3f *b);
-float	dotproduct(t_vec3f *a, t_vec3f *b);
-void	normalize_vector(t_vec3f *direction);
-t_vec3f	*find_coordinates(t_ray *ray, float distance);
+t_vec3f	vector_deduction(t_vec3f a, t_vec3f b);
+float	dotproduct(t_vec3f a, t_vec3f b);
+t_vec3f	normalize_vector(t_vec3f direction);
+t_vec3f	find_coordinates(t_ray ray, float distance);
 // Lightray
-t_ray	*make_light_ray(t_scene *scene, t_vec3f *int_point);
-t_ray	*light_ray_distance(t_scene *scene, t_vec3f *int_point, float *distance);
-t_ray	*light_reaches_point(t_scene *scene, t_ray *ray, float distance, t_vec3f *int_point);
-unsigned int	compute_shading(t_scene *scene, t_ray *ray, float distance, t_object *object);
+t_ray	make_light_ray(t_scene scene, t_vec3f int_point);
+t_ray	light_object_distance(t_scene *scene, t_vec3f *int_point, float *distance);
+t_ray	light_reaches_point(t_scene *scene, t_ray *ray, float dist_cam_obj, t_vec3f intersection_point);
+unsigned int	compute_shading(t_scene scene, t_ray ray, float distance, t_object *object);
 // Normal
-t_vec3f	*find_normal_at_point(t_object *object, t_vec3f *int_point);
-t_vec3f	*find_sphere_normal(t_sphere *sphere, t_vec3f *int_point);
+t_vec3f	find_normal_at_point(t_object *object, t_vec3f intersection_point);
+t_vec3f	find_sphere_normal(t_sphere sphere, t_vec3f int_point);
 
 #endif

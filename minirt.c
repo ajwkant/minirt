@@ -33,11 +33,11 @@ int		close_function(int keycode, t_vars *vars)
 	return (1);
 }
 
-void	my_mlx_pixel_put(t_scene *scene, int x, int y, unsigned int color)
+void	my_mlx_pixel_put(t_scene scene, int x, int y, unsigned int color)
 {
     char	*dst;
 
-    dst = scene->address + (y * scene->line_size + x * (scene->bits_per_pixel / 8));
+    dst = scene.address + (y * scene.line_size + x * (scene.bits_per_pixel / 8));
     *(unsigned int*)dst = color;
 }
 
@@ -69,13 +69,13 @@ int		main(int argc, char **argv)
 		return (-1);
 
 	scene.mlx = mlx_init();
-	scene.window = mlx_new_window(scene.mlx, scene.resolution->x, scene.resolution->y, "Hello world");
+	scene.window = mlx_new_window(scene.mlx, scene.resolution.x, scene.resolution.y, "Hello world");
 	// mlx_mouse_hook(scene.window, (void *)key_hook, &scene);
-	scene.img_ptr = mlx_new_image(scene.mlx, scene.resolution->x, scene.resolution->y);
+	scene.img_ptr = mlx_new_image(scene.mlx, scene.resolution.x, scene.resolution.y);
 	scene.address = mlx_get_data_addr(scene.img_ptr, &scene.bits_per_pixel, &scene.line_size,
 		&scene.endian);
 
-	returnvalue = ray_trace(&scene);
+	returnvalue = ray_trace(scene);
 	if (returnvalue == -1)
 		return (-1);
 	// i = 0;

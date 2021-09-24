@@ -2,11 +2,9 @@
 
 void	scene_init(t_scene *scene)
 {
-	scene->resolution = NULL;
-	scene->ambient = NULL;
-	scene->camera = NULL;
-	scene->light = NULL;
-	scene->object = NULL;
+	scene->res_is_set = 0;
+	scene->amb_is_set = 0;
+	scene->cam_is_set = 0;
 }
 
 t_object	*object_init(void)
@@ -16,11 +14,30 @@ t_object	*object_init(void)
 	object = malloc(sizeof(t_object));
 	if (!object)
 		return (NULL);
-	object->sphere = NULL;
-	object->plane = NULL;
+	object->is_sphere = 0;
+	object->is_plane = 0;
 	// object->square = NULL;
-	object->cylinder = NULL;
+	object->is_cylinder = 0;
 	// object->triangle = NULL;
 	object->next = NULL;
 	return (object);
+}
+
+t_vec3f	vec3f_init(void)
+{
+	t_vec3f	temp;
+
+	temp.x = 0;
+	temp.y = 0;
+	temp.z = 0;
+	return (temp);
+}
+
+t_ray	ray_init(void)
+{
+	t_ray	temp;
+
+	temp.place = vec3f_init();
+	temp.direction = vec3f_init();
+	return (temp);
 }

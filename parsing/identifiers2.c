@@ -4,16 +4,14 @@ int		planeid(t_scene *scene, char *str)
 {
 	int			i;
 	t_object	*object;
-	t_plane		*plane;
+	t_plane		plane;
 
-	plane = malloc(sizeof(t_plane));
-	if (!plane)
-		return (-1);
 	i = 0;
 	object = object_init();
-	plane->place = vec_reader(str, &i);
-	plane->direction = vec_reader(str, &i);
-	plane->rgb = rgb_reader(str, &i);
+	object->is_plane = 1;
+	plane.place = vec_reader(str, &i);
+	plane.direction = vec_reader(str, &i);
+	plane.rgb = rgb_reader(str, &i);
 	object->plane = plane;
 	add_last_object(scene, object);
 	return (1);
@@ -43,20 +41,18 @@ int		cylinderid(t_scene *scene, char *str)
 {
 	int			i;
 	t_object	*object;
-	t_cylinder	*cylinder;
+	t_cylinder	cylinder;
 
-	cylinder = malloc(sizeof(t_cylinder));
-	if (!cylinder)
-		return (-1);
 	i = 0;
 	object = object_init();
-	cylinder->place = vec_reader(str, &i);
-	cylinder->direction = vec_reader(str, &i);
-	cylinder->diam = readfloat(str, &i, ' ');
-	cylinder->height = readfloat(str, &i, ' ');
-	cylinder->rgb = rgb_reader(str, &i);
+	object->is_cylinder = 1;
+	cylinder.place = vec_reader(str, &i);
+	cylinder.direction = vec_reader(str, &i);
+	cylinder.diam = readfloat(str, &i, ' ');
+	cylinder.height = readfloat(str, &i, ' ');
+	cylinder.rgb = rgb_reader(str, &i);
 	object->cylinder = cylinder;
-		add_last_object(scene, object);
+	add_last_object(scene, object);
 	return (1);
 }
 
