@@ -35,15 +35,19 @@ float	intersect_sphere(t_ray ray, t_sphere sphere)
 	float	x1;
 	float	x2;
 
-
+	// write(1, "W\n", 2);
 	L = vector_deduction(ray.place, sphere.place);
+	// write(1, "X\n", 2);
 	a = dotproduct(ray.direction, ray.direction);
 	// if (a != 1)
 	// 	return (-1); // foutmelding
 	b = 2 * dotproduct(ray.direction, L);
 	c = dotproduct(L, L) - sphere.dia * sphere.dia;
+	// write(1, "Y\n", 2);
 	if (!abcformula(a, b, c, &x1, &x2))
 		return (INFINITY); // geen snijpunten
+	// write(1, "Z\n", 2);
+	// printf("x1: %f, x2: %f\n", x1, x2);
 	if (x1 < 0)
 	{
 		x1 = x2;
@@ -71,6 +75,7 @@ float	intersect(t_ray ray, t_object *object)
 		return (intersect_sphere(ray, object->sphere));
 	if (object->is_plane)
 		return (intersect_plane(ray, object->plane));
+	// write(1, "HIER?\n", 6);
 	// if (*object_list->cylinder)
 	// 	return (intersect_cylinder);
 	return (0); // error oid?

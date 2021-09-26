@@ -10,7 +10,7 @@ t_ray	make_camera_ray(t_scene scene, int x, int y)
 		* scene.resolution.x / scene.resolution.y * (tan(M_PI * scene.camera.fov / 360));
 	ray.direction.y = 1 - 2 * (((int)y + 0.5) / scene.resolution.y) * (tan(M_PI * scene.camera.fov / 360));
 	ray.direction.z = 1;
-	normalize_vector(ray.direction);
+	ray.direction = normalize_vector(ray.direction);
 	return (ray);
 }
 
@@ -19,7 +19,6 @@ t_object	*intersect_object_list(t_scene scene, t_ray ray)
 	float		distance;
 	float		closest;
 	t_object	*current;
-	// unsigned int	rgb;
 	t_object	*save_object;
 
 	save_object = NULL;
@@ -44,7 +43,6 @@ int		ray_trace(t_scene scene)
 	int				x;
 	int				y;
 	t_object		*object;
-	float			distance;
 	t_ray			ray;
 	unsigned int	rgb;
 
@@ -54,12 +52,12 @@ int		ray_trace(t_scene scene)
 		x = 0;
 		while (x < scene.resolution.x)
 		{
-			distance = INFINITY;
 			ray = make_camera_ray(scene, x, y);
-			object = intersect_object_list(scene, ray); // check argumenten
+			object = intersect_object_list(scene, ray);
 			rgb = 0x000000;
-			if (distance < INFINITY)
-				rgb = compute_shading(scene, ray, distance, object);
+			if (object)
+				rgb = compute_shading(scene, ray, object);
+			// printf("rgb: %u\n", rgb);
 			my_mlx_pixel_put(scene, x, y, rgb);
 			x++;
 		}

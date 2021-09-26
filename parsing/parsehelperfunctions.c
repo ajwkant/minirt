@@ -47,7 +47,7 @@ float	readfloat(char *str, int *i, char c)
 	return (res);
 }
 
-float	ft_atof(char *str)
+float	ft_atof(char *str) // Min and Max value
 {
 	int		i;
 	float	res;

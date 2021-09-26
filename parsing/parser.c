@@ -38,6 +38,7 @@ int		parser(char *file, t_scene *scene)
 	ret = get_next_line(fd, &line);
 	while (ret >= 0)
 	{
+		write(1, line, 10);
 		error = identifier(line, scene); // check returnvalue
 		free(line);
 		if (error == -1)

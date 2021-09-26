@@ -193,8 +193,8 @@ t_vec3f		vec3f_init(void);
 t_ray	ray_init(void);
 
 // Print
-void	rgbprint(t_rgb *rgb);
-void	printvec3f(t_vec3f *vec);
+void	rgbprint(t_rgb rgb);
+void	printvec3f(t_vec3f vec);
 void	printobject(t_object *object);
 void	printscene(t_scene scene);
 // Listfunctions
@@ -223,9 +223,10 @@ t_vec3f	find_coordinates(t_ray ray, float distance);
 t_ray	make_light_ray(t_scene scene, t_vec3f int_point);
 t_ray	light_object_distance(t_scene *scene, t_vec3f *int_point, float *distance);
 t_ray	light_reaches_point(t_scene *scene, t_ray *ray, float dist_cam_obj, t_vec3f intersection_point);
-unsigned int	compute_shading(t_scene scene, t_ray ray, float distance, t_object *object);
+unsigned int	compute_shading(t_scene scene, t_ray ray, t_object *object);
 // Normal
 t_vec3f	find_normal_at_point(t_object *object, t_vec3f intersection_point);
 t_vec3f	find_sphere_normal(t_sphere sphere, t_vec3f int_point);
+
 
 #endif

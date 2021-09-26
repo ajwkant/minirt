@@ -5,6 +5,7 @@ void	scene_init(t_scene *scene)
 	scene->res_is_set = 0;
 	scene->amb_is_set = 0;
 	scene->cam_is_set = 0;
+	scene->light = NULL;
 }
 
 t_object	*object_init(void)
