@@ -60,13 +60,15 @@ float	intersect_sphere(t_ray ray, t_sphere sphere)
 float	intersect_plane(t_ray ray, t_plane plane)
 {
 	float	t;
+	float	denominator;
 	t_vec3f	temp;
 
 	temp = vector_deduction(plane.place, ray.place);
 	t = dotproduct(temp, plane.direction);
-	t /= dotproduct(ray.direction, plane.direction);
-	// printf("T: %f\n", t);
-	return (t);
+	denominator = dotproduct(ray.direction, plane.direction);
+	if (denominator < 0.0001)
+		return (INFINITY);
+	return (t / denominator);
 }
 
 float	intersect(t_ray ray, t_object *object)
@@ -75,7 +77,6 @@ float	intersect(t_ray ray, t_object *object)
 		return (intersect_sphere(ray, object->sphere));
 	if (object->is_plane)
 		return (intersect_plane(ray, object->plane));
-	// write(1, "HIER?\n", 6);
 	// if (*object_list->cylinder)
 	// 	return (intersect_cylinder);
 	return (0); // error oid?

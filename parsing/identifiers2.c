@@ -13,6 +13,7 @@ int		planeid(t_scene *scene, char *str)
 	plane.direction = vec_reader(str, &i);
 	plane.rgb = rgb_reader(str, &i);
 	object->plane = plane;
+	normalize_vector(plane.direction);
 	add_last_object(scene, object);
 	return (1);
 }

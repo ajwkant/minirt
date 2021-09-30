@@ -21,38 +21,36 @@ void	printobject(t_object *object) // alle andere objecten nog toevoegen
 	}
 }
 
-// void	printscene(t_scene scene) // tot nu toe print ie alleen spheres
-// {
-// 	int i;
+void	printscene(t_scene scene) // tot nu toe print ie alleen spheres
+{
+	int i;
 
-// 	i = 0;
-// 	if (scene.resolution)
-// 		printf("res: x: %d,y: %d\n\n", scene.resolution->x, scene.resolution->y);
-// 	if (scene.ambient)
-// 	{
-// 		printf("ambient ratio: %f\n", scene.ambient->ratio);
-// 		rgbprint(scene.ambient->rgb);
-// 		printf("\n");
-// 	}
-// 	if (scene.camera)
-// 	{
-// 		printf("cam: place, direction, fov\n");
-// 		printvec3f(scene.camera->place);
-// 		printvec3f(scene.camera->direction);
-// 		printf("fov: %d\n\n", scene.camera->fov);
-// 	}
-// 	while (scene.light)
-// 	{
-// 		printf("light: place, brightness, rgb\n");
-// 		printvec3f(scene.light->place);
-// 		printf("brightness: %f\n", scene.light->brightness);
-// 		rgbprint(scene.light->rgb);
-// 		printf("\n");
-// 		scene.light = scene.light->next;
-// 	}
-// 	while (scene.object)
-// 	{
-// 		printobject(scene.object);
-// 		scene.object = scene.object->next;
-// 	}
-// }
+	i = 0;
+	if (scene.amb_is_set)
+	{
+		printf("ambient ratio: %f\n", scene.ambient.ratio);
+		rgbprint(scene.ambient.rgb);
+		printf("\n");
+	}
+	if (scene.cam_is_set)
+	{
+		printf("cam: place, direction, fov\n");
+		printvec3f(scene.camera.place);
+		printvec3f(scene.camera.direction);
+		printf("fov: %d\n\n", scene.camera.fov);
+	}
+	while (scene.light)
+	{
+		printf("light: place, brightness, rgb\n");
+		printvec3f(scene.light->place);
+		printf("brightness: %f\n", scene.light->brightness);
+		rgbprint(scene.light->rgb);
+		printf("\n");
+		scene.light = scene.light->next;
+	}
+	while (scene.object)
+	{
+		printobject(scene.object);
+		scene.object = scene.object->next;
+	}
+}

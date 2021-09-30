@@ -69,9 +69,9 @@ int		main(int argc, char **argv)
 		return (-1);
 
 	scene.mlx = mlx_init();
-	scene.window = mlx_new_window(scene.mlx, scene.resolution.x, scene.resolution.y, "Hello world");
+	scene.window = mlx_new_window(scene.mlx, 1080, 1920, "Hello world");
 	// mlx_mouse_hook(scene.window, (void *)key_hook, &scene);
-	scene.img_ptr = mlx_new_image(scene.mlx, scene.resolution.x, scene.resolution.y);
+	scene.img_ptr = mlx_new_image(scene.mlx, 1080, 1920);
 	scene.address = mlx_get_data_addr(scene.img_ptr, &scene.bits_per_pixel, &scene.line_size,
 		&scene.endian);
 
@@ -82,6 +82,7 @@ int		main(int argc, char **argv)
 	// mlx_loop_hook(scene.mlx, render_next_frame, &scene);
 	mlx_put_image_to_window(scene.mlx, scene.window, scene.img_ptr, 0, 0);
 	mlx_loop(scene.mlx);
+	// printf("afgelopen uit");
 }
 
 // 	t_vars      vars;

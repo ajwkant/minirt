@@ -3,7 +3,11 @@
 int		skipchar(char *str, int i, char c)
 {
 	if (str[i] != c)
-		return (-1); // proper errorcode
+	{
+		printf("strchar: %c, c: %c\n", str[i], c);
+		perror("Error in parsing. ' ' expected but not found.");
+		return (-1);
+	}
 	while (str[i] == c)
 		i++;
 	return (i);
@@ -24,25 +28,10 @@ int		readint(char *str, int *i, char c)
 	int res;
 
 	*i = skipchar(str, *i, c);
-	if (*i == -1) // errorcheck
+	if (*i == -1)
 		return (-1);
-	if (!ft_isdigit(str[*i]) && str[*i] != '-')
-		return (-1); // proper errorcode
 	res = ft_atoi(str + *i);
-	*i += floatindex(str + *i);
-	return (res);
-}
-
-float	readfloat(char *str, int *i, char c)
-{
-	float res;
-
-	*i = skipchar(str, *i, c);
-	if (*i == -1) // errorcheck
-		return (-1);
-	if (!ft_isdigit(str[*i]) && str[*i] != '-')
-		return (-1); // proper errorcode
-	res = ft_atof(str + *i);
+	if (res) // fix this still
 	*i += floatindex(str + *i);
 	return (res);
 }
@@ -50,7 +39,7 @@ float	readfloat(char *str, int *i, char c)
 float	ft_atof(char *str) // Min and Max value
 {
 	int		i;
-	float	res;
+	double	res;
 	float	dec;
 	int		neg;
 
@@ -65,6 +54,8 @@ float	ft_atof(char *str) // Min and Max value
 	while (ft_isdigit(str[i]))
 	{
 		res = res * 10 + str[i] - '0';
+		if ((res * neg) > MAX_FLOAT || (res * neg) < -MAX_FLOAT)
+			return (0);
 		i++;
 	}
 	if (str[i] == '.')
@@ -73,10 +64,26 @@ float	ft_atof(char *str) // Min and Max value
 		while(ft_isdigit(str[i]))
 		{
 			res += (str[i] - '0') * dec;
+			if (res * neg > MAX_FLOAT || res * neg < -MAX_FLOAT)
+				return (0);
 			dec /= 10;
 			i++;
 		}
 	}
 	res *= neg;
+	return (res);
+}
+
+float	readfloat(char *str, int *i, char c)
+{
+	float res;
+
+	*i = skipchar(str, *i, c);
+	if (*i == -1)
+		return (-1);
+	// if (!ft_isdigit(str[*i]) && str[*i] != '-')
+	// 	return (-1); // is dit nodig?
+	res = ft_atof(str + *i);
+	*i += floatindex(str + *i);
 	return (res);
 }

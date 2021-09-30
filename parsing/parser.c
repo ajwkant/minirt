@@ -1,11 +1,9 @@
 #include "minirt.h"
 
-int		identifier(char *str, t_scene *scene)
+int		identifier(char *str, t_scene *scene) // Can it have a line with spaces in between?
 {
 	if (!ft_strncmp(str, "\n", 1))
 		return (1);
-	if (!ft_strncmp(str, "R ", 2))
-		return (resolution(scene, str + 1));
 	if (!ft_strncmp(str, "A ", 2))
 		return (ambient(scene, str + 1));
 	if (!ft_strncmp(str, "C ", 2))
@@ -38,8 +36,8 @@ int		parser(char *file, t_scene *scene)
 	ret = get_next_line(fd, &line);
 	while (ret >= 0)
 	{
-		write(1, line, 10);
 		error = identifier(line, scene); // check returnvalue
+		printf("VALUE IN PARSER: %d\n", error);
 		free(line);
 		if (error == -1)
 			return (-1);
@@ -49,5 +47,6 @@ int		parser(char *file, t_scene *scene)
 	}
 	if (ret == -1)
 		return (-1);
+	printscene(*scene);
 	return (1);
 }

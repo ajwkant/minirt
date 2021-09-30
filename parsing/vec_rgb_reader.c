@@ -7,11 +7,8 @@ t_rgb	rgb_reader(char *str, int *i)
 	t_rgb rgb;
 
 	rgb.r  = readint(str, i, ' ');
-	// rgb->r  = readfloat(str, i, ' ');
 	rgb.g = readint(str, i, ',');
-	// rgb->g = readfloat(str, i, ',');
 	rgb.b = readint(str, i, ',');
-	// rgb->b = readfloat(str, i, ',');
 	return (rgb);
 }
 

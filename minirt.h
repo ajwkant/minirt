@@ -10,6 +10,9 @@
 #include <fcntl.h>
 #include <math.h>
 
+# define MAX_FLOAT 3.402823e+38
+// # define MIN_FLOAT 1.175494e-38
+
 
 // void			*img;
     // char        	*addr;
@@ -35,12 +38,6 @@ typedef struct		s_ray
 	t_vec3f			place;
 	t_vec3f			direction;
 }					t_ray;
-
-typedef struct		s_res
-{
-	int				x;
-	int				y;
-}					t_res;
 
 typedef struct		s_amb
 {
@@ -138,7 +135,6 @@ typedef struct			s_scene
 	int					amb_is_set;
 	int					cam_is_set;
 
-	t_res				resolution;
 	t_amb				ambient;
 	t_cam				camera;
 	t_light				*light;
@@ -177,9 +173,9 @@ int		lightid(t_scene *scene, char *str);
 int		sphereid(t_scene *scene, char *str);
 // Identifiers 2
 int		planeid(t_scene *scene, char *str);
-int		squareid(t_scene *scene, char *str);
+// int		squareid(t_scene *scene, char *str);
 int		cylinderid(t_scene *scene, char *str);
-int		triangleid(t_scene *scene, char *str);
+// int		triangleid(t_scene *scene, char *str);
 // Vec_rgb_reader
 t_rgb	rgb_reader(char *str, int *i);
 t_vec3f	vec_reader(char *str, int *i);
