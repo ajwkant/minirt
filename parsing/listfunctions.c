@@ -6,7 +6,7 @@
 /*   By: akant <akant@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/20 15:31:30 by akant         #+#    #+#                 */
-/*   Updated: 2021/09/21 10:13:36 by akant         ########   odam.nl         */
+/*   Updated: 2021/10/03 18:30:26 by akant         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	light_list_last(t_scene *scene, t_light *light)
 {
 	t_light *temp;
 
-	temp = scene->light;
 	if (!scene->light)
 		scene->light = light;
 	else
 	{
+		temp = scene->light;
 		while (temp->next)
 			temp = temp->next;
 		temp->next = light;

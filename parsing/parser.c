@@ -30,6 +30,8 @@ int		parser(char *file, t_scene *scene)
 	int		ret;
 	int		error;
 
+	// int line_number = 0;
+
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (-1);
@@ -37,7 +39,8 @@ int		parser(char *file, t_scene *scene)
 	while (ret >= 0)
 	{
 		error = identifier(line, scene); // check returnvalue
-		printf("VALUE IN PARSER: %d\n", error);
+		// printf("LINE: %d, VALUE IN PARSER: %d\n", line_number, error);
+		// line_number++;
 		free(line);
 		if (error == -1)
 			return (-1);
@@ -47,6 +50,8 @@ int		parser(char *file, t_scene *scene)
 	}
 	if (ret == -1)
 		return (-1);
-	printscene(*scene);
+	// printscene(*scene);
+	// printf("heyo\n\n");
+
 	return (1);
 }

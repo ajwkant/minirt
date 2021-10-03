@@ -6,9 +6,9 @@ t_ray	make_camera_ray(t_scene scene, int x, int y)
 	t_ray	ray;
 
 	ray.place = scene.camera.place;
-	ray.direction.x = (2 * (((int)x + 0.5) / scene.resolution.x) - 1)
-		* scene.resolution.x / scene.resolution.y * (tan(M_PI * scene.camera.fov / 360));
-	ray.direction.y = 1 - 2 * (((int)y + 0.5) / scene.resolution.y) * (tan(M_PI * scene.camera.fov / 360));
+	ray.direction.x = (2 * (((int)x + 0.5) / scene.x) - 1)
+		* scene.x / scene.y * (tan(M_PI * scene.camera.fov / 360));
+	ray.direction.y = 1 - 2 * (((int)y + 0.5) / scene.y) * (tan(M_PI * scene.camera.fov / 360));
 	ray.direction.z = 1;
 	ray.direction = normalize_vector(ray.direction);
 	return (ray);
@@ -47,13 +47,16 @@ int		ray_trace(t_scene scene)
 	unsigned int	rgb;
 
 	y = 0;
-	while (y < scene.resolution.y)
+	while (y < scene.y)
 	{
 		x = 0;
-		while (x < scene.resolution.x)
+		while (x < scene.x)
 		{
+			// printf("Lekker bezig!\n\n");
 			ray = make_camera_ray(scene, x, y);
+			// printf("Lekker bezig!\n\n");
 			object = intersect_object_list(scene, ray);
+			// printf("Lekker bezig!\n\n");
 			rgb = 0x000000;
 			if (object)
 				rgb = compute_shading(scene, ray, object);

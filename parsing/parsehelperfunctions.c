@@ -4,7 +4,7 @@ int		skipchar(char *str, int i, char c)
 {
 	if (str[i] != c)
 	{
-		printf("strchar: %c, c: %c\n", str[i], c);
+		// printf("strchar: %c, c: %c\n", str[i], c);
 		perror("Error in parsing. ' ' expected but not found.");
 		return (-1);
 	}
@@ -27,11 +27,14 @@ int		readint(char *str, int *i, char c)
 {
 	int res;
 
+	// printf("Char: %c\nstring: |%s|\n", c, str + *i);
+	// printf("Readint-----i: %d------\n", *i);
 	*i = skipchar(str, *i, c);
+	// printf("Readint-----i: %d------\n", *i);
 	if (*i == -1)
 		return (-1);
 	res = ft_atoi(str + *i);
-	if (res) // fix this still
+	// if (res) // fix this still
 	*i += floatindex(str + *i);
 	return (res);
 }

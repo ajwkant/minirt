@@ -86,7 +86,7 @@ typedef struct		s_cylinder
 {
 	t_vec3f			place;
 	t_vec3f			direction;
-	float			diam;
+	float			dia;
 	float			height;
 	t_rgb			rgb;
 }					t_cylinder;
@@ -139,8 +139,8 @@ typedef struct			s_scene
 	t_cam				camera;
 	t_light				*light;
 	t_object			*object;
-	// int					x;
-	// int					y;
+	int					x;
+	int					y;
 }						t_scene;
 
 
@@ -223,6 +223,16 @@ unsigned int	compute_shading(t_scene scene, t_ray ray, t_object *object);
 // Normal
 t_vec3f	find_normal_at_point(t_object *object, t_vec3f intersection_point);
 t_vec3f	find_sphere_normal(t_sphere sphere, t_vec3f int_point);
+
+
+//  Lots of functions that need a clean and clear file
+int		error_return(int i, char *str);
+int		vec3f_has_error(char *str);
+int		vec3f_range_has_error(t_vec3f vec, float lower, float upper);
+int		rgb_has_error(char *str, char c);
+int		rgb_range_has_error(t_rgb rgb);
+int		float_has_error(char *str, char prefix_char, char postfix_char);
+
 
 
 #endif

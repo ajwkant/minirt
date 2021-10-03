@@ -69,13 +69,18 @@ int		main(int argc, char **argv)
 		return (-1);
 
 	scene.mlx = mlx_init();
-	scene.window = mlx_new_window(scene.mlx, 1080, 1920, "Hello world");
+	scene.x = 1080;
+	scene.y = 1920;
+	scene.window = mlx_new_window(scene.mlx, scene.x, scene.y, "Hello world");
 	// mlx_mouse_hook(scene.window, (void *)key_hook, &scene);
-	scene.img_ptr = mlx_new_image(scene.mlx, 1080, 1920);
+	scene.img_ptr = mlx_new_image(scene.mlx, scene.x, scene.y);
 	scene.address = mlx_get_data_addr(scene.img_ptr, &scene.bits_per_pixel, &scene.line_size,
 		&scene.endian);
+	printf("heyo\n\n");
 
-	returnvalue = ray_trace(scene);
+	returnvalue = ray_trace(scene); // ------hier gaat het nu fout
+	printf("heyo\n\n");
+
 	if (returnvalue == -1)
 		return (-1);
 	// i = 0;
