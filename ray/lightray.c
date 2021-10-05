@@ -50,7 +50,7 @@ unsigned int	compute_shading(t_scene scene, t_ray ray, t_object *object)
 	intersection_point = find_coordinates(ray, cam_obj_dist);
 
 	if (light_gets_blocked(scene, object, intersection_point))
-		return (0); // return darkness, it's in the shadow
+		return (0x000000);
 
 	lightray = make_light_ray(scene, intersection_point);
 	normal = find_normal_at_point(object, intersection_point); // check of het een valid normal is

@@ -1,14 +1,13 @@
 #include "minirt.h"
 
-// First make the camera always be on the origin
 t_ray	make_camera_ray(t_scene scene, int x, int y)
 {
 	t_ray	ray;
 
 	ray.place = scene.camera.place;
-	ray.direction.x = (2 * (((int)x + 0.5) / scene.x) - 1)
-		* scene.x / scene.y * (tan(M_PI * scene.camera.fov / 360));
-	ray.direction.y = 1 - 2 * (((int)y + 0.5) / scene.y) * (tan(M_PI * scene.camera.fov / 360));
+	ray.direction.x = (2 * ((x + 0.5) / scene.x) - 1)
+		* (scene.x / scene.y) * (tan(scene.camera.fov / 2  * M_PI / 180));
+	ray.direction.y = 1 - 2 * ((y + 0.5) / scene.y) * (tan(scene.camera.fov / 2 * M_PI / 180));
 	ray.direction.z = 1;
 	ray.direction = normalize_vector(ray.direction);
 	return (ray);
@@ -37,7 +36,6 @@ t_object	*intersect_object_list(t_scene scene, t_ray ray)
 	return (save_object);
 }
 
-// Camera verplaatsbaar maken
 int		ray_trace(t_scene scene)
 {
 	int				x;

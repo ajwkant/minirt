@@ -20,7 +20,7 @@ int		identifier(char *str, t_scene *scene) // Can it have a line with spaces in 
 		return (cylinderid(scene, str + 2));
 	// if (!ft_strncmp(str, "tr ", 3))
 	// 	return (triangleid(scene, str + 2));
-	return (-1);
+	return(error_return(-1, "Error in parsing identifier.\n"));
 }
 
 int		parser(char *file, t_scene *scene)
