@@ -6,8 +6,8 @@ t_ray	make_camera_ray(t_scene scene, int x, int y)
 
 	ray.place = scene.camera.place;
 	ray.direction.x = (2 * ((x + 0.5) / scene.x) - 1)
-		* (scene.x / scene.y) * (tan(scene.camera.fov / 2  * M_PI / 180));
-	ray.direction.y = 1 - 2 * ((y + 0.5) / scene.y) * (tan(scene.camera.fov / 2 * M_PI / 180));
+		* ((float)scene.x / scene.y) * (tan(scene.camera.fov / 2  * M_PI / 180));
+	ray.direction.y = (1 - 2 * ((y + 0.5) / scene.y)) * (tan(scene.camera.fov / 2 * M_PI / 180));
 	ray.direction.z = 1;
 	ray.direction = normalize_vector(ray.direction);
 	return (ray);
@@ -50,15 +50,11 @@ int		ray_trace(t_scene scene)
 		x = 0;
 		while (x < scene.x)
 		{
-			// printf("Lekker bezig!\n\n");
 			ray = make_camera_ray(scene, x, y);
-			// printf("Lekker bezig!\n\n");
 			object = intersect_object_list(scene, ray);
-			// printf("Lekker bezig!\n\n");
 			rgb = 0x000000;
 			if (object)
 				rgb = compute_shading(scene, ray, object);
-			// printf("rgb: %u\n", rgb);
 			my_mlx_pixel_put(scene, x, y, rgb);
 			x++;
 		}

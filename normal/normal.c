@@ -19,7 +19,10 @@ t_vec3f	find_normal_at_point(t_object *object, t_vec3f intersection_point)
 	if (object->is_sphere)
 		return(find_sphere_normal(object->sphere, intersection_point));
 	if (object->is_plane)
-		return (object->plane.direction);
+	{
+		temp = normalize_vector(object->plane.direction);
+		return (temp);
+	}
 	// if (object->square)
 	// 	normal = find_square_normal(object->square, int_point);
 	// if (object->cylinder)

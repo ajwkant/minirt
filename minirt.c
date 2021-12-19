@@ -78,6 +78,7 @@ int		main(int argc, char **argv)
 		&scene.endian);
 
 	returnvalue = ray_trace(scene);
+	// printscene(scene);
 
 	if (returnvalue == -1)
 		return (-1);

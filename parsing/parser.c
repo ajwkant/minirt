@@ -14,12 +14,8 @@ int		identifier(char *str, t_scene *scene) // Can it have a line with spaces in 
 		return (planeid(scene, str + 2));
 	if (!ft_strncmp(str, "sp ", 3))
 		return (sphereid(scene, str + 2));
-	// if (!ft_strncmp(str, "sq ", 3))
-	// 	return (squareid(scene, str + 2));
 	if (!ft_strncmp(str, "cy ", 3))
 		return (cylinderid(scene, str + 2));
-	// if (!ft_strncmp(str, "tr ", 3))
-	// 	return (triangleid(scene, str + 2));
 	return(error_return(-1, "Error in parsing identifier.\n"));
 }
 
@@ -30,8 +26,6 @@ int		parser(char *file, t_scene *scene)
 	int		ret;
 	int		error;
 
-	// int line_number = 0;
-
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (-1);
@@ -39,8 +33,6 @@ int		parser(char *file, t_scene *scene)
 	while (ret >= 0)
 	{
 		error = identifier(line, scene); // check returnvalue
-		// printf("LINE: %d, VALUE IN PARSER: %d\n", line_number, error);
-		// line_number++;
 		free(line);
 		if (error == -1)
 			return (-1);
@@ -50,8 +42,5 @@ int		parser(char *file, t_scene *scene)
 	}
 	if (ret == -1)
 		return (-1);
-	// printscene(*scene);
-	// printf("heyo\n\n");
-
 	return (1);
 }

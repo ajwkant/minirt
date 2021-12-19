@@ -156,82 +156,100 @@ typedef struct			s_scene
 // 	// int				i;
 // }               	t_truct;
 
+// Error1
+int		error_return(int i, char *str);
+int		float_has_error(char *str, char prefix_char, char postfix_char)
+int		rgb_has_error(char *str, char c)
+int		vec3f_range_has_error(t_vec3f vec, float lower, float upper)
+int		vec3f_has_error(char *str)
 
-int		parser(char *file, t_scene *scene);
 
-// Parserhelperfunctions
-int		skipchar(char *str, int i, char c);
-int		floatindex(char *str);
-int		readint(char *str, int *i, char c);
-float	readfloat(char *str, int *i, char c);
-float	ft_atof(char *str);
+// Error2
+int		int_has_error(char *str, char prefix_char, char postfix_char)
+int		is_in_range(float num, float lower, float upper)
+int		rgb_range_has_error(t_rgb rgb)
+
 // Identifiers 1
-int		resolution(t_scene *scene, char *str);
 int		ambient(t_scene *scene, char *str);
 int		cameraid(t_scene *scene, char *str);
 int		lightid(t_scene *scene, char *str);
 int		sphereid(t_scene *scene, char *str);
+
 // Identifiers 2
 int		planeid(t_scene *scene, char *str);
-// int		squareid(t_scene *scene, char *str);
 int		cylinderid(t_scene *scene, char *str);
-// int		triangleid(t_scene *scene, char *str);
-// Vec_rgb_reader
-t_rgb	rgb_reader(char *str, int *i);
-t_vec3f	vec_reader(char *str, int *i);
-unsigned int	make_rgb(t_rgb vec, float ratio);
-t_rgb	get_rgb(t_object *object);
-void	rgb_ratio(t_rgb	*rgb, float fr);
+
 // Init
 void		scene_init(t_scene *scene);
 t_object	*object_init(void);
 t_vec3f		vec3f_init(void);
-t_ray	ray_init(void);
-
-// Print
-void	rgbprint(t_rgb rgb);
-void	printvec3f(t_vec3f vec);
-void	printobject(t_object *object);
-void	printscene(t_scene scene);
-// Listfunctions
-void	add_last_object(t_scene *scene, t_object *object);
-void	camera_list_last(t_scene *scene, t_cam *cam);
-void	light_list_last(t_scene *scene, t_light *light);
-// Ray1c
-void		freeray(t_ray *ray);
-t_ray		make_camera_ray(t_scene scene, int x, int y);
-t_object	*intersect_object_list(t_scene scene, t_ray ray);
-int			ray_trace(t_scene scene);
+t_ray		ray_init(void);
 
 // Intersect
 float	intersect(t_ray ray, t_object *object_list);
 float	intersect_sphere(t_ray ray, t_sphere sphere);
 float	intersect_plane(t_ray ray, t_plane plane);
 
-// Minirt.c
-void	my_mlx_pixel_put(t_scene scene, int x, int y, unsigned int color);
-// Ray_math
-t_vec3f	vector_deduction(t_vec3f a, t_vec3f b);
-float	dotproduct(t_vec3f a, t_vec3f b);
-t_vec3f	normalize_vector(t_vec3f direction);
-t_vec3f	find_coordinates(t_ray ray, float distance);
 // Lightray
 t_ray	make_light_ray(t_scene scene, t_vec3f int_point);
 t_ray	light_object_distance(t_scene *scene, t_vec3f *int_point, float *distance);
 t_ray	light_reaches_point(t_scene *scene, t_ray *ray, float dist_cam_obj, t_vec3f intersection_point);
 unsigned int	compute_shading(t_scene scene, t_ray ray, t_object *object);
+
+// Listfunctions
+void	add_last_object(t_scene *scene, t_object *object);
+void	camera_list_last(t_scene *scene, t_cam *cam);
+void	light_list_last(t_scene *scene, t_light *light);
+
+// Minirt.c
+void	my_mlx_pixel_put(t_scene scene, int x, int y, unsigned int color);
+
 // Normal
 t_vec3f	find_normal_at_point(t_object *object, t_vec3f intersection_point);
 t_vec3f	find_sphere_normal(t_sphere sphere, t_vec3f int_point);
 
+// Parsing
+int			parser(char *file, t_scene *scene);
 
-//  Lots of functions that need a clean and clear file
-int		error_return(int i, char *str);
-int		vec3f_has_error(char *str);
-int		vec3f_range_has_error(t_vec3f vec, float lower, float upper);
-int		rgb_has_error(char *str, char c);
-int		rgb_range_has_error(t_rgb rgb);
-int		float_has_error(char *str, char prefix_char, char postfix_char);
+// Parserhelperfunctions
+int			skipchar(char *str, int i, char c);
+int			floatindex(char *str);
+int			readint(char *str, int *i, char c);
+float		readfloat(char *str, int *i, char c);
+float		ft_atof(char *str);
+
+// Print
+void	rgbprint(t_rgb rgb);
+void	printvec3f(t_vec3f vec);
+void	printobject(t_object *object);
+void	printscene(t_scene scene);
+
+// Ray1c
+void		freeray(t_ray *ray);
+t_ray		make_camera_ray(t_scene scene, int x, int y);
+t_object	*intersect_object_list(t_scene scene, t_ray ray);
+int			ray_trace(t_scene scene);
+
+// Ray_math
+t_vec3f	vector_deduction(t_vec3f a, t_vec3f b);
+float	dotproduct(t_vec3f a, t_vec3f b);
+t_vec3f	normalize_vector(t_vec3f direction);
+t_vec3f	find_coordinates(t_ray ray, float distance);
+
+// Vec_rgb_reader
+t_rgb	rgb_reader(char *str, int *i);
+t_vec3f	vec_reader(char *str, int *i);
+unsigned int	make_rgb(t_rgb vec, float ratio);
+t_rgb	get_rgb(t_object *object);
+void	rgb_ratio(t_rgb	*rgb, float fr);
+
+// Al ergens anders ingedeeld denk ik
+// //  Lots of functions that need a clean and clear file
+// int		vec3f_has_error(char *str);
+// int		vec3f_range_has_error(t_vec3f vec, float lower, float upper);
+// int		rgb_has_error(char *str, char c);
+// int		rgb_range_has_error(t_rgb rgb);
+// int		float_has_error(char *str, char prefix_char, char postfix_char);
 
 
 

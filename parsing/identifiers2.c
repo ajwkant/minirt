@@ -31,26 +31,6 @@ int		planeid(t_scene *scene, char *str)
 	return (1);
 }
 
-// int		squareid(t_scene *scene, char *str)
-// {
-// 	int			i;
-// 	t_object	*object;
-// 	t_square	*square;
-
-// 	square = malloc(sizeof(t_square));
-// 	if (!square)
-// 		return (-1);
-// 	i = 0;
-// 	object = object_init();
-// 	square->place = vec_reader(str, &i);
-// 	square->direction = vec_reader(str, &i);
-// 	square->rgb = rgb_reader(str, &i);
-// 	square->size = readfloat(str, &i, ' ');
-// 	object->square = square;
-// 	add_last_object(scene, object);
-// 	return (1);
-// }
-
 int		cylinderid(t_scene *scene, char *str)
 {
 	int			i;
@@ -97,23 +77,3 @@ int		cylinderid(t_scene *scene, char *str)
 	add_last_object(scene, object);
 	return (1);
 }
-
-// int		triangleid(t_scene *scene, char *str)
-// {
-// 	int			i;
-// 	t_object	*object;
-// 	t_triangle	*triangle;
-
-// 	triangle = malloc(sizeof(t_triangle));
-// 	if (!triangle)
-// 		return (-1);
-// 	i = 0;
-// 	object = object_init();
-// 	triangle->p1 = vec_reader(str, &i);
-// 	triangle->p2 = vec_reader(str, &i);
-// 	triangle->p3 = vec_reader(str, &i);
-// 	triangle->rgb = rgb_reader(str, &i);
-// 	object->triangle = triangle;
-// 	add_last_object(scene, object);
-// 	return (1);
-// }

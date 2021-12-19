@@ -1,6 +1,16 @@
-#include "minirt.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   vec_rgb_reader.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: akant <akant@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/10/15 14:16:11 by akant         #+#    #+#                 */
+/*   Updated: 2021/10/15 14:16:16 by akant         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
-// checkerfunctie
+#include "minirt.h"
 
 t_rgb	rgb_reader(char *str, int *i)
 {
@@ -38,10 +48,6 @@ t_rgb	get_rgb(t_object *object)
 		return (object->sphere.rgb);
 	if (object->is_plane)
 		return (object->plane.rgb);
-	// if (object.square)
-	// 	return (object.square.rgb);
 	// if (object->is_cylinder)
 	return (object->cylinder.rgb);
-	// if (object.triangle)
-	// 	return (object.triangle.rgb);
 }

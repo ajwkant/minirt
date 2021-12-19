@@ -14,10 +14,22 @@ void	printobject(t_object *object) // alle andere objecten nog toevoegen
 {
 	if (object->is_sphere)
 	{
+		printf("\nsphere: \n");
 		printf("sphere place: ");
 		printvec3f(object->sphere.place);
 		printf("sphere dia: %f\n", object->sphere.dia);
+		printf("sphere rgb: ");
 		rgbprint(object->sphere.rgb);
+	}
+	if (object->is_plane)
+	{
+		printf("\nplane: \n");
+		printf("plane place: ");
+		printvec3f(object->plane.place);
+		printf("plane direction: ");
+		printvec3f(object->plane.direction);
+		printf("Plane rgb: ");
+		rgbprint(object->plane.rgb);
 	}
 }
 
